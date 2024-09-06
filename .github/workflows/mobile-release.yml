@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: |
-            .haxelib/
+            /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
           key: cache-android-build
@@ -87,12 +87,12 @@ jobs:
         uses: actions/cache/save@main
         with:
           path: |
-            .haxelib/
+            /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
           key: cache-android-build
 
-      - name: Upload Artifact (Android)
+      - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: PsychEngine-release
