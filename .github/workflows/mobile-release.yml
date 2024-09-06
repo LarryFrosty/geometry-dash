@@ -73,33 +73,3 @@ jobs:
           name: iOSBuild
           path: export/release/ios/build/Release-iphoneos/*.zip
           if-no-files-found: error
-  Releaser:
-    needs: [Mobile]
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
-      - name: Download Android Build
-        uses: actions/download-artifact@main
-        with:
-           name: androidBuild
-           path: /home/runner
-
-      - name: Move Android File
-        run: mv /home/runner/PsychEngine-release.apk /home/runner/PsychEngine-Android.apk
-
-      - name: Download iOS Build
-        uses: actions/download-artifact@main
-        with:
-           name: iOSBuild
-           path: /home/runner
-
-      - name: Publish The Release
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: true
-          automatic_release_tag: "1.0-prerelease"
-          title: "1.0 (Prerelease)"
-          files: |
-            /home/runner/*.apk
-            /home/runner/*.zip
