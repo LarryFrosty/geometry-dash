@@ -24,8 +24,8 @@ jobs:
         with:
           path: |
             /home/runner/haxelib/
-            home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
-            home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
           key: cache-android-build
 
       - name: Install Libraries
@@ -88,8 +88,8 @@ jobs:
         with:
           path: |
             /home/runner/haxelib/
-            home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
-            home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
           key: cache-android-build
 
       - name: Upload Artifact
