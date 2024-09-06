@@ -11,12 +11,7 @@ import psychlua.FunkinLua;
 
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
-
-typedef IrisCall = {
-	var methodName:String;
-	var methodReturn:Dynamic;
-	var methodVal:Dynamic;
-};
+import crowplexus.iris.IrisConfig;
 
 class HScript extends Iris
 {
@@ -64,7 +59,7 @@ class HScript extends Iris
 		if (file == null)
 			file = '';
 	
-		super(null, {name: "hscript-iris", autoRun: false, preset: false});
+		super(null, new IrisConfig("hscript-iris", false, false));
 
 		#if LUA_ALLOWED
 		parentLua = parent;
@@ -387,7 +382,7 @@ class HScript extends Iris
 		try
 		{
 			final callValue:IrisCall = call(funcToRun, funcArgs);
-			return callValue.methodVal;
+			return callValue.returnValue;
 		}
 		catch(e:Dynamic)
 		{
@@ -411,7 +406,7 @@ class HScript extends Iris
 				final retVal:IrisCall = funk.hscript.executeCode(funcToRun, funcArgs);
 				if (retVal != null)
 				{
-					return (retVal.methodVal == null || LuaUtils.isOfTypes(retVal.methodVal, [Bool, Int, Float, String, Array])) ? retVal.methodVal : null;
+					return (retVal.returnValue == null || LuaUtils.isOfTypes(retVal.returnValue, [Bool, Int, Float, String, Array])) ? retVal.returnValue : null;
 				}
 			}
 			catch(e:Dynamic)
