@@ -1,5 +1,9 @@
 name: Android
-on: workflow_dispatch
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
 jobs:
   Mobile:
     runs-on: ubuntu-latest
