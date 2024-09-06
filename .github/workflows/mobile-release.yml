@@ -1,4 +1,4 @@
-name: Mobile + Release
+name: Mobile
 on: workflow_dispatch
 jobs:
   Mobile:
