@@ -47,7 +47,7 @@ class HScript extends Iris
 			hs.varsToBring = varsToBring;
 			try
 			{
-				hs.scriptStr = code;
+				hs.scriptCode = code;
 				hs.execute();
 			}
 			catch(e:Dynamic)
@@ -95,7 +95,7 @@ class HScript extends Iris
 				scriptThing = File.getContent(f);
 			}
 		}
-		this.scriptStr = scriptThing;
+		this.scriptCode = scriptThing;
 
 		this.varsToBring = varsToBring;
 		preset();
