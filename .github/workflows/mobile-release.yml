@@ -30,6 +30,7 @@ jobs:
 
       - name: Install Libraries
         run: |
+          haxelib setup ~/haxelib
           haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp --quiet
           haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
           haxelib install openfl 9.3.3 --quiet
