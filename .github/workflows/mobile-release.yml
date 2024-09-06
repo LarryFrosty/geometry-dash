@@ -24,8 +24,8 @@ jobs:
         with:
           path: |
             /home/runner/haxelib/
-            /home/runner/export/release/android/haxe/
-            /home/runner/export/release/android/obj/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
+            /home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
           key: cache-android-build
 
       - name: Install Libraries
@@ -88,13 +88,13 @@ jobs:
         with:
           path: |
             /home/runner/haxelib/
-            /home/runner/export/release/android/haxe/
-            /home/runner/export/release/android/obj/
+            home/runner/work/geometry-dash/geometry-dash/export/release/android/haxe/
+            home/runner/work/geometry-dash/geometry-dash/export/release/android/obj/
           key: cache-android-build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: PsychEngine-release
-          path: /home/runner/export/release/android/bin/app/build/outputs/apk/release
+          path: home/runner/work/geometry-dash/geometry-dash/export/release/android/bin/app/build/outputs/apk/release
           if-no-files-found: error
