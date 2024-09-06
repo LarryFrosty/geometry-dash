@@ -370,16 +370,6 @@ class HScript extends Iris
 			return PlayState.instance.luaTouchPadJustReleased(button);
 		});
                 #end
-
-		if(varsToBring != null) {
-			for (key in Reflect.fields(varsToBring)) {
-				key = key.trim();
-				var value = Reflect.field(varsToBring, key);
-				//trace('Key $key: $value');
-				set(key, Reflect.field(varsToBring, key));
-			}
-			varsToBring = null;
-		}
 	}
 
 	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):IrisCall {
