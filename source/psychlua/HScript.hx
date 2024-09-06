@@ -427,7 +427,7 @@ class HScript extends Iris
 				final retVal:IrisCall = funk.hscript.executeFunction(funcToRun, funcArgs);
 				if (retVal != null)
 				{
-					return (retVal.methodVal == null || LuaUtils.isOfTypes(retVal.methodVal, [Bool, Int, Float, String, Array])) ? retVal.methodVal : null;
+					return (retVal.returnValue == null || LuaUtils.isOfTypes(retVal.returnValue, [Bool, Int, Float, String, Array])) ? retVal.returnValue : null;
 				}
 			}
 			catch(e:Dynamic)
