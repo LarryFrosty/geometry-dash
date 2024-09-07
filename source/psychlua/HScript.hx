@@ -89,11 +89,9 @@ class HScript extends Iris
 				scriptThing = File.getContent(f);
 			}
 		}
-		this.scriptCode = scriptThing;
 
-		this.varsToBring = varsToBring;
 		preset();
-		executeScript();
+		executeScript(scriptThing, varsToBring);
 	}
 
 	var varsToBring(default, set):Any = null;
@@ -413,9 +411,9 @@ class HScript extends Iris
 				FunkinLua.luaTrace('ERROR (${funk.hscript.origin}: $funcToRun) - $e', false, false, FlxColor.RED);
 				return null;
 			}
-			if (returnValue != null)
+			if (funk.hscript.returnValue != null)
 			{
-				return returnValue;
+				return funk.hscript.returnValue;
 			}
 
 			#else
