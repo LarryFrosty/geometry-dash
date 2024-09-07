@@ -476,15 +476,15 @@ class HScript extends Iris
 	{
 		this.varsToBring = varsToBring;
 		scriptCode = code;
-		parse(true);
 		try
 		{
+			parse(true);
 			returnValue = execute();
 			return returnValue;
 		}
 		catch(e)
 		{
-			PlayState.instance.addTextToDebug('ERROR (${this.origin}:${this.interp.posInfos()}): ${e}', FlxColor.RED);
+			PlayState.instance.addTextToDebug('ERROR (${this.origin}):${this.interp.posInfos().lineNumber} - ${e}', FlxColor.RED);
 		}
 		return null;
 	}
