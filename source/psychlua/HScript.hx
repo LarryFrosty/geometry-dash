@@ -470,11 +470,6 @@ class HScript extends Iris
 	}
 	#end
 
-	override function logLevel(level: crowplexus.iris.ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
-		super.logLevel(level, x, pos);
-		if (PlayState.instance != null) PlayState.instance.addTextToDebug("ERROR: $x", FlxColor.RED);
-	}
-
 	/*override function irisPrint(v):Void
 	{
 		FunkinLua.luaTrace('ERROR (${this.origin}:${interp.posInfos().lineNumber}): ${v}');
