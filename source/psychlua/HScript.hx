@@ -470,7 +470,7 @@ class HScript extends Iris
 	}
 	#end
 
-	override static function logLevel(level: ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
+	override function logLevel(level: crowplexus.iris.ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
 		super.logLevel(level, x, pos);
 		if (PlayState.instance != null) PlayState.instance.addTextToDebug("ERROR: $x", FlxColor.RED);
 	}
