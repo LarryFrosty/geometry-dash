@@ -1462,7 +1462,8 @@ class PlayState extends MusicBeatState
 
 	function eventEarlyTrigger(event:EventNote):Float {
 		var returnedValue:Dynamic = callOnScripts('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], true, [], [0]);
-		if(returnedValue != null && returnedValue != 0 && returnedValue != LuaUtils.Function_Continue) {
+		returnedValue = Std.parseFloat(returnedValue);
+		if(returnedValue != null && !Math.isNaN(returnedValue) && returnedValue != 0) {
 			return returnedValue;
 		}
 
@@ -3362,10 +3363,7 @@ class PlayState extends MusicBeatState
 				var callValue = script.call(funcToCall, args);
 				var myValue:Dynamic = callValue.returnValue;
 
-				// compiler fuckup fix
-				final stopHscript = myValue == LuaUtils.Function_StopHScript;
-				final stopAll = myValue == LuaUtils.Function_StopAll;
-				if((stopHscript || stopAll) && !excludeValues.contains(myValue) && !ignoreStops)
+				if((myValue == LuaUtils.Function_StopHScript || myValue == LuaUtils.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
 				{
 					returnVal = myValue;
 					break;
