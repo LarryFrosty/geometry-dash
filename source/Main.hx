@@ -171,12 +171,6 @@ class Main extends Sprite
 		FlxG.scaleMode = new MobileScaleMode();
 		#end
 
-		#if HSCRIPT_ALLOWED
-		crowplexus.iris.Iris.logLevel = function(level: crowplexus.iris.ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
-			if (PlayState.instance != null) PlayState.instance.addTextToDebug("ERROR: "+Std.string(x), FlxColor.RED);
-		}
-		#end
-
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
 			if(fpsVar != null)

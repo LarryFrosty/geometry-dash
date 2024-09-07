@@ -472,11 +472,20 @@ class HScript extends Iris
 	}
 	#end
 
-	public function executeScript(code:String, ?varsToBring:Any = null):Dynamic {
+	public function executeScript(code:String, ?varsToBring:Any = null):Dynamic
+	{
 		this.varsToBring = varsToBring;
 		scriptCode = code;
 		parse(true);
-		return returnValue = execute();
+		try
+		{
+			returnValue = execute();
+		}
+		catch(e)
+		{
+			PlayState.instance.addTextToDebug('ERROR (${this.origin}:${this.interp.posInfos()}): ${e}', FlxColor.RED);
+		}
+		return returnValue;
 	}
 
 	/*override function irisPrint(v):Void
