@@ -15,6 +15,7 @@ import crowplexus.iris.IrisConfig;
 
 class HScript extends Iris
 {
+	public var returnValue:Dynamic;
 	public var filePath:String;
 	public var modFolder:String;
 
@@ -39,15 +40,13 @@ class HScript extends Iris
 		}
 		else
 		{
-			hs.varsToBring = varsToBring;
 			try
 			{
-				hs.scriptCode = code;
-				hs.execute();
+				hs.executeScript(code, varsToBring);
 			}
 			catch(e:Dynamic)
 			{
-				FunkinLua.luaTrace('ERROR (${hs.origin}) - $e', false, false, FlxColor.RED);
+				PlayState.instance.addTextToDebug('ERROR (${hs.origin}) - $e', FlxColor.RED);
 			}
 		}
 	}
@@ -94,7 +93,7 @@ class HScript extends Iris
 
 		this.varsToBring = varsToBring;
 		preset();
-		execute();
+		executeScript();
 	}
 
 	var varsToBring(default, set):Any = null;
@@ -412,6 +411,11 @@ class HScript extends Iris
 			catch(e:Dynamic)
 			{
 				FunkinLua.luaTrace('ERROR (${funk.hscript.origin}: $funcToRun) - $e', false, false, FlxColor.RED);
+				return;
+			}
+			if (returnValue != null)
+			{
+				return returnValue;
 			}
 
 			#else
@@ -469,6 +473,13 @@ class HScript extends Iris
 		});
 	}
 	#end
+
+	public function executeScript(code:String, ?varsToBring:Any = null):Dynamic {
+		this.varsToBring = varsToBring;
+		scriptCode = code;
+		parse(true);
+		return returnValue = execute();
+	}
 
 	/*override function irisPrint(v):Void
 	{
