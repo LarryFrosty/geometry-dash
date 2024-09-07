@@ -480,12 +480,13 @@ class HScript extends Iris
 		try
 		{
 			returnValue = execute();
+			return returnValue;
 		}
 		catch(e)
 		{
 			PlayState.instance.addTextToDebug('ERROR (${this.origin}:${this.interp.posInfos()}): ${e}', FlxColor.RED);
 		}
-		return returnValue;
+		return null;
 	}
 
 	/*override function irisPrint(v):Void
