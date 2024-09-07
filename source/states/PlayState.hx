@@ -3282,8 +3282,9 @@ class PlayState extends MusicBeatState
 		}
 		catch(e:Dynamic)
 		{
-			addTextToDebug('ERROR ON LOADING ($file):${this.interp.posInfos().lineNumber} - ${e}', FlxColor.RED);
 			var newScript:HScript = cast (Iris.instances.get(file), HScript);
+			var line = newScript != null ? newScript.interp.posInfos().lineNumber : '';
+			addTextToDebug('ERROR ON LOADING ($file):${line} - ${e}', FlxColor.RED);
 			if(newScript != null)
 				newScript.destroy();
 		}
