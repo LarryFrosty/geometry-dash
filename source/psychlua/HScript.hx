@@ -470,9 +470,9 @@ class HScript extends Iris
 	}
 	#end
 
-	override public function set(name:String, value:Dynamic, allowOverride:Bool = false):Void {
-		// should always override by default
-		super.set(name, value, true);
+	override static function logLevel(level: ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
+		super.logLevel(level, x, pos);
+		if (PlayState.instance != null) PlayState.instance.addTextToDebug("ERROR: $x", FlxColor.RED);
 	}
 
 	/*override function irisPrint(v):Void
