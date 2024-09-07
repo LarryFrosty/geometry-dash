@@ -411,7 +411,7 @@ class HScript extends Iris
 			catch(e:Dynamic)
 			{
 				FunkinLua.luaTrace('ERROR (${funk.hscript.origin}: $funcToRun) - $e', false, false, FlxColor.RED);
-				return;
+				return null;
 			}
 			if (returnValue != null)
 			{
