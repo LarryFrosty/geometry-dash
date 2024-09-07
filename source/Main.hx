@@ -172,7 +172,7 @@ class Main extends Sprite
 		#end
 
 		#if HSCRIPT_ALLOWED
-		Iris.logLevel = function(level: crowplexus.iris.ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
+		crowplexus.iris.Iris.logLevel = function(level: crowplexus.iris.ErrorSeverity, x, ?pos: haxe.PosInfos): Void {
 			if (PlayState.instance != null) PlayState.instance.addTextToDebug("ERROR: $x", FlxColor.RED);
 		}
 		#end
