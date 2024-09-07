@@ -198,17 +198,17 @@ class ReflectionFunctions
 				if(index > -1)
 				{
 					myArg = myArg.substring(index+2);
-					PlayState.instance.addTextToDebug('Op1: $myArg');
+					PlayState.instance.addTextToDebug('Op1: $myArg', FlxColor.WHITE);
 					var lastIndex:Int = myArg.lastIndexOf('::');
 
 					var split:Array<String> = lastIndex > -1 ? myArg.substring(0, lastIndex).split('.') : myArg.split('.');
 					args[i] = (lastIndex > -1) ? Type.resolveClass(myArg.substring(lastIndex+2)) : PlayState.instance;
-					PlayState.instance.addTextToDebug('Op1.5: ${args[i]}');
+					PlayState.instance.addTextToDebug('Op1.5: ${args[i]}', FlxColor.WHITE);
 					for (j in 0...split.length)
 					{
-						PlayState.instance.addTextToDebug('Op2: ${Type.getClass(args[i])}, ${split[j]}');
+						PlayState.instance.addTextToDebug('Op2: ${Type.getClass(args[i])}, ${split[j]}', FlxColor.WHITE);
 						args[i] = LuaUtils.getVarInArray(args[i], split[j].trim());
-						PlayState.instance.addTextToDebug('Op3: ${args[i] != null ? Type.getClass(args[i]) : null}');
+						PlayState.instance.addTextToDebug('Op3: ${args[i] != null ? Type.getClass(args[i]) : null}', FlxColor.WHITE);
 					}
 				}
 			}
