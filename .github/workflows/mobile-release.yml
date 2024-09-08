@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: |
-            /home/runner/haxelib/
+            haxelib/
             export/release/android/haxe/
             export/release/android/obj/
           key: cache-android-build-new
@@ -87,7 +87,7 @@ jobs:
         uses: actions/cache/save@main
         with:
           path: |
-            /home/runner/haxelib/
+            haxelib/
             export/release/android/haxe/
             export/release/android/obj/
           key: cache-android-build-new
