@@ -10,6 +10,7 @@ import psychlua.FunkinLua;
 #end
 
 #if HSCRIPT_ALLOWED
+import crowplexus.iris.Iris;
 import crowplexus.iris.*;
 
 class HScript extends Iris
