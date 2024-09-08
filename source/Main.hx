@@ -140,9 +140,15 @@ class Main extends Sprite
 		}
 
 		#if HSCRIPT_ALLOWED
-		crowplexus.iris.Iris.error = function(level:crowplexus.iris.ErrorSeverity, x, ?pos:haxe.PosInfos):Void {
+		crowplexus.iris.Iris.logLevel = function(level:crowplexus.iris.ErrorSeverity, x, ?pos:haxe.PosInfos):Void {
 			if (pos == null) {
-				pos = crowplexus.iris.Iris.getDefaultPos();
+				pos = {
+					fileName: "hscript-iris",
+					lineNumber: -1,
+					className: "UnknownClass",
+					methodName: "unknownFunction",
+					customParams: null
+				}
 			}
 
 			var errorMsg = 'ERROR (${pos.fileName})';

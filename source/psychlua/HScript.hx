@@ -11,7 +11,8 @@ import psychlua.FunkinLua;
 
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
-import crowplexus.iris.*;
+import crowplexus.iris.IrisConfig;
+import crowplexus.iris.ErrorSeverity;
 
 class HScript extends Iris
 {
@@ -46,7 +47,7 @@ class HScript extends Iris
 			}
 			catch(e:Dynamic)
 			{
-				Iris.error(ERROR, e, hs.interp.posInfos());
+				Iris.error(ErrorSeverity.ERROR, e, hs.interp.posInfos());
 			}
 		}
 	}
