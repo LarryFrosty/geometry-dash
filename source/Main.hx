@@ -139,6 +139,24 @@ class Main extends Sprite
 			fpsVar.visible = ClientPrefs.data.showFPS;
 		}
 
+		#if HSCRIPT_ALLOWED
+		crowplexus.iris.Iris.error = function(level:crowplexus.iris.ErrorSeverity, x, ?pos:haxe.PosInfos):Void {
+			if (pos == null) {
+				pos = crowplexus.iris.Iris.getDefaultPos();
+			}
+
+			var errorMsg = 'ERROR (${pos.fileName})';
+			if (pos.lineNumber != -1)
+				errorMsg += ':${pos.lineNumber}';
+			errorMsg += ' - ${x}';
+
+			if (PlayState.instance != null) {
+				PlayState.instance.addTextToDebug(errorMsg, FlxColor.RED);
+			}
+			trace(errorMsg);
+		}
+		#end
+
 		#if linux
 		var icon = Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);

@@ -10,8 +10,7 @@ import psychlua.FunkinLua;
 #end
 
 #if HSCRIPT_ALLOWED
-import crowplexus.iris.Iris;
-import crowplexus.iris.IrisConfig;
+import crowplexus.iris.*;
 
 class HScript extends Iris
 {
@@ -46,7 +45,7 @@ class HScript extends Iris
 			}
 			catch(e:Dynamic)
 			{
-				PlayState.instance.addTextToDebug('ERROR (${hs.origin}) - $e', FlxColor.RED);
+				Iris.error(ERROR, e, hs.interp.posInfos());
 			}
 		}
 	}
@@ -476,17 +475,8 @@ class HScript extends Iris
 	{
 		this.varsToBring = varsToBring;
 		scriptCode = code;
-		try
-		{
-			parse(true);
-			returnValue = execute();
-			return returnValue;
-		}
-		catch(e)
-		{
-			PlayState.instance.addTextToDebug('ERROR (${this.origin}):${this.interp.posInfos().lineNumber} - ${e}', FlxColor.RED);
-		}
-		return null;
+		parse(true);
+		return returnValue = execute();
 	}
 
 	/*override function irisPrint(v):Void
