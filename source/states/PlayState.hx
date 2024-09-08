@@ -3376,7 +3376,7 @@ class PlayState extends MusicBeatState
 			}
 			catch(e:Dynamic)
 			{
-				addTextToDebug('ERROR (${script.origin}: $funcToCall) - $e', FlxColor.RED);
+				addTextToDebug('ERROR (${script.origin}:${script.interp.posInfos().lineNumber} $funcToCall) - $e', FlxColor.RED);
 			}
 		}
 		#end

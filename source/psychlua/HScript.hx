@@ -47,7 +47,7 @@ class HScript extends Iris
 				hs.execute();
 			}
 			catch(e:Dynamic) {
-				PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}):${hs.interp.posInfos().lineNumber} - ${e}', FlxColor.RED);
+				PlayState.instance.addTextToDebug('ERROR ON LOADING (${hs.origin}:${hs.interp.posInfos().lineNumber}) - ${e}', FlxColor.RED);
 			}
 		}
 	}
@@ -393,7 +393,7 @@ class HScript extends Iris
 			}
 			catch(e:Dynamic)
 			{
-				FunkinLua.luaTrace('ERROR (${funk.hscript.origin}: $funcToRun) - $e', false, false, FlxColor.RED);
+				FunkinLua.luaTrace('ERROR (${funk.hscript.origin}:${funk.hscript.interp.posInfos().lineNumber}: $funcToRun) - $e', false, false, FlxColor.RED);
 			}
 			return null;
 			#else
