@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        update: false
+        update: 'false'
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -34,7 +34,7 @@ jobs:
         run: haxelib setup ~/haxelib
 
       - name: Update Libraries
-        if: matrix.update
+        if: matrix.update == 'true'
         run: |
           yes | haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp --quiet
           yes | haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
