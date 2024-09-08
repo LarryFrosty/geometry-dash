@@ -47,7 +47,7 @@ class HScript extends Iris
 			}
 			catch(e:Dynamic)
 			{
-				Iris.error(ErrorSeverity.ERROR, e, hs.interp.posInfos());
+				Iris.error(e, hs.interp.posInfos());
 			}
 		}
 	}
