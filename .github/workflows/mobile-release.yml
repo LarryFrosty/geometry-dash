@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {update: false}
+          - {update: true}
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -39,7 +39,7 @@ jobs:
         run: |
           yes | haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp --quiet
           yes | haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
-          yes | haxelib git hscript-iris https://github.com/crowplexus/hscript-iris dev --quiet
+          yes | haxelib set hscript-iris 1.1.0 --quiet
           yes | haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 768740a56b26aa0c072720e0d1236b94afe68e3e --quiet
           yes | haxelib git linc_luajit https://github.com/mcagabe19-stuff/linc_luajit-rewriten --quiet
           yes | haxelib git hxvlc https://github.com/MAJigsaw77/hxvlc 70e7f5f3e76d526ac6fb8f0e6665efe7dfda589d --quiet --skip-dependencies
