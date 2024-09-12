@@ -73,7 +73,7 @@ jobs:
             					repo: context.repo.repo,
             					cache_id: cache.id,
             				})
-            				console.log("Previous Cache Cleared!")
+            				console.log("Previous cache cleared!")
             			}
             		}
             	}

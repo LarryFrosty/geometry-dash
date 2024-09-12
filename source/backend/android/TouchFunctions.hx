@@ -1,4 +1,4 @@
-package mobile.backend;
+package backend.android;
 
 import flixel.FlxBasic;
 import flixel.input.touch.FlxTouch;
@@ -14,7 +14,7 @@ class TouchFunctions
 	public static var justReleased(get, never):Bool;
 	public static var touch(get, never):FlxTouch;
 
-	public static function touchOverlapObject(object:FlxBasic):Bool
+	public static function overlaps(object:FlxBasic):Bool
 	{
 		for (touch in FlxG.touches.list)
 			return touch.overlaps(object);
