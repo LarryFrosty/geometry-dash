@@ -7,7 +7,7 @@ class TitleState extends FlxState
         gameTitle.screenCenter(X);
         add(gameTitle);
 
-        var playButton:FlxButton = new flixel.ui.FlxButton(0, gameTitle.y + 200, "Play", function() FlxG.switchState(new states.PlayState()));
+        var playButton:flixel.ui.FlxButton = new flixel.ui.FlxButton(0, gameTitle.y + 200, "Play", function() FlxG.switchState(new states.PlayState()));
         playButton.screenCenter(X);
         add(playButton);
 
