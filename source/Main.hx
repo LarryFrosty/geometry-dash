@@ -37,7 +37,7 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
-		CrashHandler.init();
+		backend.CrashHandler.init();
 
 		if (stage != null)
 		{
