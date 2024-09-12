@@ -43,6 +43,7 @@ jobs:
           haxelib install flixel
           haxelib install flixel-addons
           haxelib install flixel-ui
+          yes | haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools 727693f0a76c6e396df675bb0ed95d7639a4db01 --quiet --skip-dependencies
 
       - name: Configure Android
         run: |
