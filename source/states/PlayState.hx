@@ -1344,7 +1344,7 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(spawnTime, noteColumn, oldNote);
 				var isAlt: Bool = section.altAnim && !swagNote.mustPress && !section.gfSection;
 				swagNote.gfNote = (section.gfSection && !gottaHitNote);
-				swagNote.thirdNote = songNotes[1] > 8; // the name of all time
+				swagNote.thirdNote = songNotes[1] > 7; // the name of all time
 				swagNote.animSuffix = isAlt ? "-alt" : "";
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = holdLength;
