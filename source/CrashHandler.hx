@@ -74,7 +74,11 @@ class CrashHandler
 			trace('Couldn\'t save error message. (${e.message})');
 		#end
 
-		CoolUtil.showPopUp('$m\n$stackLabel', "Error!");
+		#if android
+		AndroidTools.showAlertDialog('$m\n$stackLabel', "Error!", {name: "OK", func: null}, null);
+		#else
+		FlxG.stage.window.alert('$m\n$stackLabel', "Error!");
+		#end
 		lime.system.System.exit(1);
 	}
 
