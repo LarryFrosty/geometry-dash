@@ -1,4 +1,4 @@
-package;
+package backend;
 
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;
