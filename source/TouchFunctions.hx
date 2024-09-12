@@ -9,9 +9,9 @@ import flixel.input.touch.FlxTouch;
  */
 class TouchFunctions
 {
-	public static var touchPressed(get, never):Bool;
-	public static var touchJustPressed(get, never):Bool;
-	public static var touchJustReleased(get, never):Bool;
+	public static var pressed(get, never):Bool;
+	public static var justPressed(get, never):Bool;
+	public static var justReleased(get, never):Bool;
 	public static var touch(get, never):FlxTouch;
 
 	public static function touchOverlapObject(object:FlxBasic):Bool
@@ -22,7 +22,7 @@ class TouchFunctions
 	}
 
 	@:noCompletion
-	private static function get_touchPressed():Bool
+	private static function get_pressed():Bool
 	{
 		for (touch in FlxG.touches.list)
 			return touch.pressed;
@@ -30,7 +30,7 @@ class TouchFunctions
 	}
 
 	@:noCompletion
-	private static function get_touchJustPressed():Bool
+	private static function get_justPressed():Bool
 	{
 		for (touch in FlxG.touches.list)
 			return touch.justPressed;
@@ -38,7 +38,7 @@ class TouchFunctions
 	}
 
 	@:noCompletion
-	private static function get_touchJustReleased():Bool
+	private static function get_justReleased():Bool
 	{
 		for (touch in FlxG.touches.list)
 			return touch.justReleased;
