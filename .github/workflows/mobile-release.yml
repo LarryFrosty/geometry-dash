@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {update: true}
+          - {update: false}
     steps:
       - name: Checkout
         uses: actions/checkout@main
