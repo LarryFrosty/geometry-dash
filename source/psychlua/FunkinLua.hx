@@ -1344,7 +1344,6 @@ class FunkinLua {
 			game.addTextToDebug('ran with tag "'+tag+'"', FlxColor.LIME);
 			if(tag == null || tag.length < 1) {
 				if(FlxG.sound.music != null) FlxG.sound.music.stop();
-				return 'fuck';
 			}
 			else
 			{
@@ -1361,20 +1360,19 @@ class FunkinLua {
 					game.addTextToDebug(Std.string(snd.playing), FlxColor.WHITE);
 					variables.remove(tag);
 				}
-				return 'yay!!!!!';
 			}
-			return 'how';
 		});
 		set("pauseSound", function(tag:String) {
-			if(tag == null || tag.length < 1)
+			if(tag == null || tag.length < 1) {
 				if(FlxG.sound.music != null) FlxG.sound.music.pause();
+			}
 			else
 			{
 				tag = LuaUtils.formatVariable('sound_$tag');
 				var snd:FlxSound = MusicBeatState.getVariables().get(tag);
 				if(snd != null) snd.pause();
 			}
-			return;
+			return true;
 		});
 		set("resumeSound", function(tag:String) {
 			if(tag == null || tag.length < 1)
