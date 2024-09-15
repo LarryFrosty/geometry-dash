@@ -26,6 +26,7 @@ jobs:
         uses: actions/cache/restore@main
         with:
           path: |
+            /home/runner/.gradle/
             /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
@@ -93,6 +94,7 @@ jobs:
         uses: actions/cache/save@main
         with:
           path: |
+            /home/runner/.gradle/
             /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
