@@ -1345,17 +1345,17 @@ class FunkinLua {
 				if(FlxG.sound.music != null) FlxG.sound.music.stop();
 			else
 			{
-				game.addTextToDebug('stopSound ran with tag "'+tag+'"');
+				game.addTextToDebug('stopSound ran with tag "'+tag+'"', FlxColor.LIME);
 				tag = LuaUtils.formatVariable('sound_$tag');
-				game.addTextToDebug('New tag "'+tag+'"');
+				game.addTextToDebug('New tag "'+tag+'"', FlxColor.LIME);
 				var variables = MusicBeatState.getVariables();
 				var snd:FlxSound = variables.get(tag);
-				game.addTextToDebug(snd);
-				game.addTextToDebug(snd == null);
+				game.addTextToDebug(Std.string(snd), FlxColor.WHITE);
+				game.addTextToDebug(Std.string(snd == null), FlxColor.WHITE);
 				if(snd != null)
 				{
 					snd.stop();
-					game.addTextToDebug(snd.playing);
+					game.addTextToDebug(Std.string(snd.playing), FlxColor.WHITE);
 					variables.remove(tag);
 				}
 			}
