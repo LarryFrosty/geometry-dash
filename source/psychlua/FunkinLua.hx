@@ -1374,6 +1374,7 @@ class FunkinLua {
 				var snd:FlxSound = MusicBeatState.getVariables().get(tag);
 				if(snd != null) snd.pause();
 			}
+			return;
 		});
 		set("resumeSound", function(tag:String) {
 			if(tag == null || tag.length < 1)
