@@ -1342,9 +1342,10 @@ class FunkinLua {
 		});
 		set("stopSound", function(tag:String) {
 			game.addTextToDebug('ran with tag "'+tag+'"', FlxColor.LIME);
-			if(tag == null || tag.length < 1)
+			if(tag == null || tag.length < 1) {
 				if(FlxG.sound.music != null) FlxG.sound.music.stop();
 				return 'fuck';
+			}
 			else
 			{
 				game.addTextToDebug('stopSound ran with tag "'+tag+'"', FlxColor.LIME);
