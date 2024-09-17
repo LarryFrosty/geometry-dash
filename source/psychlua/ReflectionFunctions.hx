@@ -148,11 +148,11 @@ class ReflectionFunctions
 		
 				if(myType == null)
 				{
-					FunkinLua.luaTrace('createInstance: Variable $variableToSave is already being used and cannot be replaced!', false, false, FlxColor.RED);
+					FunkinLua.luaTrace('createInstance: Class $className not found.', false, false, FlxColor.RED);
 					return false;
 				}
 
-				var obj:Dynamic = Type.createInstance(myType, args);
+				var obj:Dynamic = Type.createInstance(myType, parseInstances(args));
 				if(obj != null)
 					MusicBeatState.getVariables().set(variableToSave, obj);
 				else
