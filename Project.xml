@@ -101,8 +101,6 @@
 	<library name="week_assets"   preload="false" />
 	</section>
 
-	<define name="CHECK_FOR_UPDATES" if="officialBuild" />
-
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
 	</section>
