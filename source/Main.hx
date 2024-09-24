@@ -46,6 +46,7 @@ class Main extends Sprite
 		Lib.current.addChild(new Main());
 		#if cpp
 		cpp.NativeGc.enable(true);
+		cpp.NativeGc.run(true);
 		#elseif hl
 		hl.Gc.enable(true);
 		#end
@@ -164,8 +165,7 @@ class Main extends Sprite
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 
 		#if mobile
-		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver; 		
-		FlxG.scaleMode = new MobileScaleMode();
+		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 		#end
 
 		// shader coords fix
