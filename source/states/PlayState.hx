@@ -3121,7 +3121,7 @@ class PlayState extends MusicBeatState
 		#end
 		stagesFunc(function(stage:BaseStage) stage.destroy());
 
-		if (CustomSubstate.instance != null)
+		if (psychlua.CustomSubstate.instance != null)
 		{
 			closeSubState();
 			resetSubState();
