@@ -3121,7 +3121,11 @@ class PlayState extends MusicBeatState
 		#end
 		stagesFunc(function(stage:BaseStage) stage.destroy());
 
-		psychlua.CustomSubstate.closeCustomSubstate();
+		if (CustomSubstate.instance != null)
+		{
+			closeSubState();
+			resetSubState();
+		}
 
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
