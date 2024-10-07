@@ -182,7 +182,7 @@ class ReflectionFunctions
 			switch(Type.typeof(groupOrArray))
 			{
 				case TClass(Array): //Is Array
-					if(obj == null) obj = groupOrArray.members[index];
+					if(obj == null) obj = groupOrArray[index];
 					groupOrArray.remove(obj, true);
 					if(destroy) obj.destroy();
 
@@ -192,7 +192,7 @@ class ReflectionFunctions
 						groupOrArray.remove(obj);
 						if(destroy) obj.destroy();
 					}
-					else groupOrArray.remove(groupOrArray[index]);
+					else groupOrArray.remove(groupOrArray.members[index]);
 			}
 		});
 		
