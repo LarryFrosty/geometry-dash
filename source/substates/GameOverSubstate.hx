@@ -1,7 +1,7 @@
 package substates;
 
 import backend.WeekData;
-import lime.ui.Haptic;
+
 import objects.Character;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -9,6 +9,7 @@ import flixel.math.FlxPoint;
 
 import states.StoryMenuState;
 import states.FreeplayState;
+import lime.ui.Haptic;
 
 class GameOverSubstate extends MusicBeatSubstate
 {

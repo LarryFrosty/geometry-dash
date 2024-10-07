@@ -14,6 +14,8 @@ import flixel.math.FlxMath;
 import flixel.util.FlxDestroyUtil;
 import haxe.Json;
 
+import lime.utils.Assets;
+
 class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
@@ -175,10 +177,10 @@ class FreeplayState extends MusicBeatState
 		bottomBG.alpha = 0.6;
 		add(bottomBG);
 
-        var thing:String;
-        if (controls.mobileC)
+		var thing:String;
+		if (controls.mobileC)
 			thing = "Press X to listen to the Song / Press C to open the Gameplay Changers Menu / Press Y to Reset your Score and Accuracy.";
-        else
+		else
 			thing = Language.getPhrase("freeplay_tip", "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.");
 
 		var leText:String = thing;
@@ -249,7 +251,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 
 		var shiftMult:Int = 1;
-        if((FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed) && !player.playingMusic) shiftMult = 3;
+		if((FlxG.keys.pressed.SHIFT || touchPad.buttonZ.pressed) && !player.playingMusic) shiftMult = 3;
 
 		if (!player.playingMusic)
 		{
@@ -310,7 +312,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-        if (controls.BACK)
+		if (controls.BACK)
 		{
 			if (player.playingMusic)
 			{
@@ -333,13 +335,13 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-        if((FlxG.keys.justPressed.CONTROL || touchPad.buttonC.justPressed) && !player.playingMusic)
+		if((FlxG.keys.justPressed.CONTROL || touchPad.buttonC.justPressed) && !player.playingMusic)
 		{
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 			removeTouchPad();
 		}
-        else if(FlxG.keys.justPressed.SPACE || touchPad.buttonX.justPressed)
+		else if(FlxG.keys.justPressed.SPACE || touchPad.buttonX.justPressed)
 		{
 			if(instPlaying != curSelected && !player.playingMusic)
 			{
@@ -457,7 +459,7 @@ class FreeplayState extends MusicBeatState
 			DiscordClient.loadModRPC();
 			#end
 		}
-        else if((controls.RESET || touchPad.buttonY.justPressed) && !player.playingMusic)
+		else if((controls.RESET || touchPad.buttonY.justPressed) && !player.playingMusic)
 		{
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
@@ -477,7 +479,7 @@ class FreeplayState extends MusicBeatState
 			#if MODS_ALLOWED
 			var character:Dynamic = Json.parse(File.getContent(path));
 			#else
-			var character:Dynamic = Json.parse(openfl.Assets.getText(path));
+			var character:Dynamic = Json.parse(Assets.getText(path));
 			#end
 			return character.vocals_file;
 		}

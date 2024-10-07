@@ -77,12 +77,10 @@ class ModSettingsSubState extends BaseOptionsMenu
 								var data = save.get(newOption.variable);
 								if(data == null) data = {keyboard: 'NONE', gamepad: 'NONE'};
 
-								if(!controls.controllerMode) 
-									data.keyboard = value;
-								else
-									data.gamepad = value;
+								if(!controls.controllerMode) data.keyboard = value;
+								else data.gamepad = value;
 								if(save.exists(newOption.variable)) save.remove(newOption.variable);
-								save.set(newOption.variable, data);
+									save.set(newOption.variable, data);
 							};
 						}
 
@@ -95,7 +93,7 @@ class ModSettingsSubState extends BaseOptionsMenu
 							newOption.getValue = function() return save.get(newOption.variable);
 							newOption.setValue = function(value:Dynamic) { 
 								if(save.exists(newOption.variable)) save.remove(newOption.variable);
-								save.set(newOption.variable, value);
+									save.set(newOption.variable, value);
 							}
 						}
 				}

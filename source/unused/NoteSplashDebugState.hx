@@ -235,15 +235,13 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 				copiedArray[0] = arr[0];
 				copiedArray[1] = arr[1];
 			}
-			else if((FlxG.keys.justPressed.V || touchPad.buttonV.justPressed))
+			else if(FlxG.keys.justPressed.V || touchPad.buttonV.justPressed && copiedArray != null)
 			{
-			if (copiedArray != null){
 				var offs:Array<Float> = selectedArray();
 				offs[0] = copiedArray[0];
 				offs[1] = copiedArray[1];
 				splashes.members[curSelected].offset.set(10 + offs[0], 10 + offs[1]);
 				updateOffsetText();
-			}
 			}
 		}
 
@@ -258,7 +256,7 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 
 		if(FlxG.keys.justPressed.ENTER || touchPad.buttonA.justPressed)
 		{
-		    savedText.text = 'Press ${controls.mobileC ? 'A' : 'ENTER'} again to save.';
+			savedText.text = 'Press ${controls.mobileC ? 'A' : 'ENTER'} again to save.';
 			if(pressEnterToSave > 0) //save
 			{
 				saveFile();
@@ -275,7 +273,8 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 		}
 
 		// Reset anim & change anim
-		if (FlxG.keys.justPressed.SPACE || touchPad.buttonY.justPressed) changeAnim();
+		if (FlxG.keys.justPressed.SPACE || touchPad.buttonY.justPressed)
+			changeAnim();
 		else if (FlxG.keys.justPressed.S || touchPad.buttonLeft.justPressed) changeAnim(-1);
 		else if (FlxG.keys.justPressed.W || touchPad.buttonRight.justPressed) changeAnim(1);
 
@@ -340,7 +339,7 @@ class NoteSplashDebugState extends MusicBeatState implements PsychUIEventHandler
 		var strToSave = config.anim + '\n' + config.minFps + ' ' + config.maxFps;
 		for (offGroup in config.offsets)
 			strToSave += '\n' + offGroup[0] + ' ' + offGroup[1];
-			
+
 		var pathSplit:Array<String> = (Paths.getPath('images/$texturePath.png', IMAGE, true).split('.png')[0]).split(':');
 		var path:String = pathSplit[pathSplit.length-1].trim() + '.txt';
 		var assetsDir:String = '';

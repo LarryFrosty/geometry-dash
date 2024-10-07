@@ -3,6 +3,7 @@ package backend;
 import flixel.util.FlxSave;
 import flixel.input.keyboard.FlxKey;
 import flixel.input.gamepad.FlxGamepadInputID;
+
 import states.TitleState;
 
 // Add a variable here and it will get automatically saved
@@ -20,6 +21,7 @@ import states.TitleState;
 	public var hitboxType:String = "Gradient";
 	public var popUpRating:Bool = true;
 	public var vsync:Bool = false;
+	public var gameOverVibration:Bool = false;
 	
 	public var downScroll:Bool = false;
 	public var middleScroll:Bool = false;
@@ -35,7 +37,6 @@ import states.TitleState;
 	public var shaders:Bool = true;
 	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
 	public var framerate:Int = 60;
-	public var gameOverVibration:Bool = false;
 	public var camZooms:Bool = true;
 	public var hideHud:Bool = false;
 	public var noteOffset:Int = 0;
@@ -87,7 +88,7 @@ import states.TitleState;
 	public var goodWindow:Int = 90;
 	public var badWindow:Int = 135;
 	public var safeFrames:Float = 10;
-	public var guitarHeroSustains:Bool = false;
+	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
 	public var loadingScreen:Bool = true;
 	public var language:String = 'en-US';
@@ -103,7 +104,7 @@ class ClientPrefs {
 		'note_up'		=> [W, UP],
 		'note_left'		=> [A, LEFT],
 		'note_down'		=> [S, DOWN],
-		'note_right'	        => [D, RIGHT],
+		'note_right'	=> [D, RIGHT],
 		
 		'ui_up'			=> [W, UP],
 		'ui_left'		=> [A, LEFT],
@@ -128,7 +129,7 @@ class ClientPrefs {
 		'note_up'		=> [DPAD_UP, Y],
 		'note_left'		=> [DPAD_LEFT, X],
 		'note_down'		=> [DPAD_DOWN, A],
-		'note_right'	        => [DPAD_RIGHT, B],
+		'note_right'	=> [DPAD_RIGHT, B],
 		
 		'ui_up'			=> [DPAD_UP, LEFT_STICK_DIGITAL_UP],
 		'ui_left'		=> [DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT],
@@ -141,15 +142,15 @@ class ClientPrefs {
 		'reset'			=> [BACK]
 	];
 	public static var mobileBinds:Map<String, Array<MobileInputID>> = [
-		'note_up'		=> [noteUP, UP2],
-		'note_left'		=> [noteLEFT, LEFT2],
-		'note_down'		=> [noteDOWN, DOWN2],
-		'note_right'	=> [noteRIGHT, RIGHT2],
+		'note_up'		=> [NOTE_UP, UP2],
+		'note_left'		=> [NOTE_LEFT, LEFT2],
+		'note_down'		=> [NOTE_DOWN, DOWN2],
+		'note_right'	=> [NOTE_RIGHT, RIGHT2],
 
-		'ui_up'			=> [UP, noteUP],
-		'ui_left'		=> [LEFT, noteLEFT],
-		'ui_down'		=> [DOWN, noteDOWN],
-		'ui_right'		=> [RIGHT, noteRIGHT],
+		'ui_up'			=> [UP, NOTE_UP],
+		'ui_left'		=> [LEFT, NOTE_LEFT],
+		'ui_down'		=> [DOWN, NOTE_DOWN],
+		'ui_right'		=> [RIGHT, NOTE_RIGHT],
 
 		'accept'		=> [A],
 		'back'			=> [B],
@@ -294,8 +295,8 @@ class ClientPrefs {
 	public static function toggleVolumeKeys(?turnOn:Bool = true)
 	{
 		final emptyArray = [];
-		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : emptyArray;
-		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : emptyArray;
-		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : emptyArray;
+		FlxG.sound.muteKeys = (!Controls.instance.mobileC && turnOn) ? TitleState.muteKeys : emptyArray;
+		FlxG.sound.volumeDownKeys = (!Controls.instance.mobileC && turnOn) ? TitleState.volumeDownKeys : emptyArray;
+		FlxG.sound.volumeUpKeys = (!Controls.instance.mobileC && turnOn) ? TitleState.volumeUpKeys : emptyArray;
 	}
 }

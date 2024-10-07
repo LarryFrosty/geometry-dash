@@ -174,6 +174,14 @@ class PauseSubState extends MusicBeatSubstate
 			return;
 		}
 
+		if(FlxG.keys.justPressed.F5)
+		{
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			PlayState.nextReloadAll = true;
+			MusicBeatState.resetState();
+		}
+
 		updateSkipTextStuff();
 		if (controls.UI_UP_P)
 		{
@@ -334,7 +342,7 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (touchPad == null) //sometimes it dosent add the vpad, hopefully this fixes it
+		if (touchPad == null) //sometimes it dosent add the tpad, hopefully this fixes it
 		{
 			addTouchPad(PlayState.chartingMode ? 'LEFT_FULL' : 'UP_DOWN', 'A');
 			addTouchPadCamera();

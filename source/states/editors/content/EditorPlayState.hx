@@ -2,9 +2,11 @@ package states.editors.content;
 
 import backend.Song;
 import backend.Rating;
+
 import objects.Note;
 import objects.NoteSplash;
 import objects.StrumNote;
+
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.animation.FlxAnimationController;
@@ -102,7 +104,7 @@ class EditorPlayState extends MusicBeatSubstate
 		add(comboGroup);
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
-		grpNoteSplashes = new FlxTypedGroup<NoteSplash>(8);
+		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		add(grpNoteSplashes);
 		
 		var splash:NoteSplash = new NoteSplash();
@@ -129,7 +131,7 @@ class EditorPlayState extends MusicBeatSubstate
 		dataTxt.borderSize = 1.25;
 		add(dataTxt);
 
-    	var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ${controls.mobileC ? #if android 'BACK' #else 'X' #end : 'ESC'} to Go Back to Chart Editor', 16);
+		var tipText:FlxText = new FlxText(10, FlxG.height - 24, 0, 'Press ${controls.mobileC ? #if android 'BACK' #else 'X' #end : 'ESC'} to Go Back to Chart Editor', 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
@@ -155,7 +157,7 @@ class EditorPlayState extends MusicBeatSubstate
 		#end
 
 		addMobileControls();
-		mobileControls.visible = true;
+		mobileControls.instance.visible = true;
 
 		super.create();
 
@@ -340,7 +342,7 @@ class EditorPlayState extends MusicBeatSubstate
 			swagNote.scrollFactor.set();
 			unspawnNotes.push(swagNote);
 
-			var roundSus:Int = Math.floor(swagNote.sustainLength / Conductor.stepCrochet);
+			final roundSus:Int = Math.floor(swagNote.sustainLength / Conductor.stepCrochet);
 			if(roundSus > 0)
 			{
 				for (susNote in 0...roundSus + 1)
@@ -435,7 +437,7 @@ class EditorPlayState extends MusicBeatSubstate
 			}
 
 			strumLineNotes.add(babyArrow);
-			babyArrow.postAddedToGroup();
+			babyArrow.playerPosition();
 		}
 	}
 
@@ -465,7 +467,7 @@ class EditorPlayState extends MusicBeatSubstate
 
 		Conductor.songPosition = FlxG.sound.music.time = vocals.time = opponentVocals.time = startPos - Conductor.offset;
 
-		mobileControls.visible = false;
+		mobileControls.instance.visible = false;
 
 		close();
 	}

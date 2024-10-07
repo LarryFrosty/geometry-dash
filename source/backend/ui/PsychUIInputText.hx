@@ -376,7 +376,10 @@ class PsychUIInputText extends FlxSpriteGroup
 	}
 
 	public dynamic function onPressEnter(e:KeyboardEvent)
+	{
+		FlxG.stage.window.textInputEnabled = false;
 		focusOn = null;
+	}
 
 	public var unfocus:Void->Void;
 	public static function set_focusOn(v:PsychUIInputText)

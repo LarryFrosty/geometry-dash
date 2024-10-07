@@ -13,7 +13,7 @@ import objects.Note;
 import shaders.RGBPalette;
 import shaders.RGBPalette.RGBShaderReference;
 
-class NotesSubState extends MusicBeatSubstate
+class NotesColorSubState extends MusicBeatSubstate
 {
 	var onModeColumn:Bool = true;
 	var curSelectedMode:Int = 0;
@@ -54,6 +54,7 @@ class NotesSubState extends MusicBeatSubstate
 		DiscordClient.changePresence("Note Colors Menu", null);
 		#end
 		
+		onPixel = PlayState.isPixelStage;
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFEA71FD;
 		bg.screenCenter();
@@ -88,7 +89,7 @@ class NotesSubState extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite(750, 160).makeGraphic(FlxG.width - 780, 540, FlxColor.BLACK);
 		bg.alpha = 0.25;
 		add(bg);
-
+		
 		var text:Alphabet = new Alphabet((controls.mobileC) ? 44 : 50, 86, (controls.mobileC) ? 'PRESS' : 'CTRL', false);
 		text.alignment = CENTERED;
 		text.setScale(0.4);

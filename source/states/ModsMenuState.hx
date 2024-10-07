@@ -11,9 +11,10 @@ import haxe.Json;
 import flixel.util.FlxSpriteUtil;
 import objects.AttachedSprite;
 import options.ModSettingsSubState;
-import mobile.backend.TouchFunctions;
+
 import openfl.display.BitmapData;
 import lime.utils.Assets;
+import mobile.backend.TouchFunctions;
 
 class ModsMenuState extends MusicBeatState
 {
@@ -188,6 +189,7 @@ class ModsMenuState extends MusicBeatState
 			addTouchPad('NONE', 'B');
 			return super.create();
 		}
+		//
 
 		bgTitle = FlxSpriteUtil.drawRoundRectComplex(new FlxSprite(bgList.x + bgList.width + 20, 40).makeGraphic(840, 180, FlxColor.TRANSPARENT), 0, 0, 840, 180, 15, 15, 0, 0, FlxColor.BLACK);
 		bgTitle.alpha = 0.6;
@@ -381,9 +383,10 @@ class ModsMenuState extends MusicBeatState
 				holdingElapsed = 0;
 				updateItemPositions();
 			}
+
 			var lastMode = hoveringOnMods;
 			if(modsList.all.length > 1)
-				{
+			{
 				if(!controls.mobileC && FlxG.mouse.justPressed)
 				{
 					for (i in centerMod-2...centerMod+3)
@@ -651,6 +654,7 @@ class ModsMenuState extends MusicBeatState
 			curSelectedMod = max;
 			limited = true;
 		}
+		
 		if(!controls.mobileC && !isMouseWheel && limited && Math.abs(add) == 1)
 		{
 			if(add < 0) // pressed up on first mod
@@ -843,11 +847,10 @@ class ModItem extends FlxSpriteGroup
 		var path:String = Paths.mods('$folder/data/settings.json');
 		if(FileSystem.exists(path))
 		{
-			var data:String = File.getContent(path);
 			try
 			{
 				//trace('trying to load settings: $folder');
-				settings = tjson.TJSON.parse(data);
+				settings = tjson.TJSON.parse(File.getContent(path));
 			}
 			catch(e:Dynamic)
 			{
@@ -901,10 +904,9 @@ class ModItem extends FlxSpriteGroup
 			if(pack.iconFramerate != null) this.iconFps = pack.iconFramerate;
 			if(pack.color != null)
 			{
-				this.bgColor = FlxColor.fromRGB(
-					pack.color[0] != null ? pack.color[0] : 170,
-					pack.color[1] != null ? pack.color[1] : 0,
-					pack.color[2] != null ? pack.color[2] : 255);
+				this.bgColor = FlxColor.fromRGB(pack.color[0] != null ? pack.color[0] : 170,
+											  pack.color[1] != null ? pack.color[1] : 0,
+											  pack.color[2] != null ? pack.color[2] : 255);
 			}
 			this.mustRestart = (pack.restart == true);
 		}

@@ -1,6 +1,8 @@
 package states.stages.objects;
 
+#if funkin.vis
 import funkin.vis.dsp.SpectralAnalyzer;
+#end
 
 class ABotSpeaker extends FlxSpriteGroup
 {
@@ -14,14 +16,18 @@ class ABotSpeaker extends FlxSpriteGroup
 	public var eyes:FlxAnimate;
 	public var speaker:FlxAnimate;
 
+	#if funkin.vis
 	var analyzer:SpectralAnalyzer;
+	#end
 	var volumes:Array<Float> = [];
 
 	public var snd(default, set):FlxSound;
 	function set_snd(changed:FlxSound)
 	{
 		snd = changed;
+		#if funkin.vis
 		initAnalyzer();
+		#end
 		return snd;
 	}
 
@@ -77,6 +83,7 @@ class ABotSpeaker extends FlxSpriteGroup
 		add(speaker);
 	}
 
+	#if funkin.vis
 	var levels:Array<Bar>;
 	var levelMax:Int = 0;
 	override function update(elapsed:Float):Void
@@ -103,23 +110,26 @@ class ABotSpeaker extends FlxSpriteGroup
 				beatHit();
 		}
 	}
+	#end
 
 	public function beatHit()
 	{
 		speaker.anim.play('anim', true);
 	}
 
+	#if funkin.vis
 	public function initAnalyzer()
 	{
 		@:privateAccess
 		analyzer = new SpectralAnalyzer(snd._channel.__audioSource, 7, 0.1, 40);
 	
-		#if (desktop || mobile)
-		// On desktop it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
+		#if !web
+		// On native it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
 		// So we want to manually change it!
 		analyzer.fftN = 256;
 		#end
 	}
+	#end
 
 	var lookingAtRight:Bool = true;
 	public function lookLeft()

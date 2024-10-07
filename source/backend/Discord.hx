@@ -90,8 +90,8 @@ class DiscordClient
 						Discord.RunCallbacks();
 					}
 
-					// Wait 2 second until the next loop...
-					Sys.sleep(2);
+					// Wait 1 second until the next loop...
+					Sys.sleep(1.0);
 				}
 			});
 		}
@@ -141,7 +141,7 @@ class DiscordClient
 		return newID;
 	}
 
-	#if (MODS_ALLOWED && desktop && !hl)
+	#if (MODS_ALLOWED && DISCORD_ALLOWED)
 	public static function loadModRPC()
 	{
 		var pack:Dynamic = Mods.getPack();

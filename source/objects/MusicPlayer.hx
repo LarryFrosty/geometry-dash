@@ -179,7 +179,7 @@ class MusicPlayer extends FlxGroup
 				setPlaybackRate();
 			}
 		}
-
+	
 		if (instance.touchPad.buttonC.justPressed || controls.RESET)
 		{
 			playbackRate = 1;

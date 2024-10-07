@@ -15,19 +15,21 @@ class MobileFunctions
 {
 	public static function implement(funk:FunkinLua)
 	{
+		funk.set('mobileC', Controls.instance.mobileC);
+
 		funk.set('mobileControlsMode', getMobileControlsAsString());
 
 		funk.set("extraButtonPressed", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.pressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.pressed;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.pressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra.pressed;
 				}
 			}
 			return false;
@@ -36,14 +38,14 @@ class MobileFunctions
 		funk.set("extraButtonJustPressed", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justPressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.justPressed;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justPressed;
+						return MusicBeatState.getState().mobileControls.buttonExtra.justPressed;
 				}
 			}
 			return false;
@@ -52,20 +54,20 @@ class MobileFunctions
 		funk.set("extraButtonJustReleased", (button:String) ->
 		{
 			button = button.toLowerCase();
-			if (MusicBeatState.instance.mobileControls != null)
+			if (MusicBeatState.getState().mobileControls != null)
 			{
 				switch (button)
 				{
 					case 'second':
-						return MusicBeatState.instance.mobileControls.current.buttonExtra2.justReleased;
+						return MusicBeatState.getState().mobileControls.buttonExtra2.justReleased;
 					default:
-						return MusicBeatState.instance.mobileControls.current.buttonExtra.justReleased;
+						return MusicBeatState.getState().mobileControls.buttonExtra.justReleased;
 				}
 			}
 			return false;
 		});
 
-		funk.set("vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		funk.set("vibrate", (?duration:Int, ?period:Int) ->
 		{
 			if (duration == null)
 				return FunkinLua.luaTrace('vibrate: No duration specified.');
@@ -80,7 +82,7 @@ class MobileFunctions
 			if (addToCustomSubstate)
 			{
 				if (PlayState.instance.luaTouchPad != null || !PlayState.instance.members.contains(PlayState.instance.luaTouchPad))
-					CustomSubstate.insertLuaVpad(posAtCustomSubstate);
+					CustomSubstate.insertLuaTpad(posAtCustomSubstate);
 			}
 			else
 				PlayState.instance.addLuaTouchPad();
@@ -178,7 +180,7 @@ class MobileFunctions
 
 	public static function getMobileControlsAsString():String
 	{
-		switch (MobileControls.mode)
+		switch (MobileData.mode)
 		{
 			case 0:
 				return 'left';
@@ -189,7 +191,7 @@ class MobileFunctions
 			case 3:
 				return 'hitbox';
 			default:
-				return 'unknown';
+				return 'none';
 		}
 	}
 }
@@ -197,16 +199,16 @@ class MobileFunctions
 #if android
 class AndroidFunctions
 {
-	//static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
+	// static var spicyPillow:AndroidBatteryManager = new AndroidBatteryManager();
 	public static function implement(funk:FunkinLua)
 	{
-		//funk.set("isRooted", AndroidTools.isRooted());
+		funk.set("isRooted", AndroidTools.isRooted());
 		funk.set("isDolbyAtmos", AndroidTools.isDolbyAtmos());
 		funk.set("isAndroidTV", AndroidTools.isAndroidTV());
 		funk.set("isTablet", AndroidTools.isTablet());
 		funk.set("isChromebook", AndroidTools.isChromebook());
 		funk.set("isDeXMode", AndroidTools.isDeXMode());
-		//funk.set("isCharging", spicyPillow.isCharging());
+		// funk.set("isCharging", spicyPillow.isCharging());
 
 		funk.set("backJustPressed", FlxG.android.justPressed.BACK);
 		funk.set("backPressed", FlxG.android.pressed.BACK);
@@ -217,7 +219,7 @@ class AndroidFunctions
 		funk.set("menuJustReleased", FlxG.android.justReleased.MENU);
 
 		funk.set("getCurrentOrientation", () -> PsychJNI.getCurrentOrientationAsString());
-		funk.set("setOrientation", function(hint:Null<String>):Void
+		funk.set("setOrientation", function(?hint:String):Void
 		{
 			switch (hint.toLowerCase())
 			{
@@ -239,7 +241,7 @@ class AndroidFunctions
 
 		funk.set("minimizeWindow", () -> AndroidTools.minimizeWindow());
 
-		funk.set("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
+		funk.set("showToast", function(text:String, ?duration:Int, ?xOffset:Int, ?yOffset:Int) /* , ?gravity:Int*/
 		{
 			if (text == null)
 				return FunkinLua.luaTrace('showToast: No text specified.');
@@ -258,17 +260,19 @@ class AndroidFunctions
 
 		funk.set("clipboardHasText", () -> PsychJNI.clipboardHasText());
 		funk.set("clipboardGetText", () -> PsychJNI.clipboardGetText());
-		funk.set("clipboardSetText", function(text:Null<String>):Void
+		funk.set("clipboardSetText", function(?text:String):Void
 		{
-			if (text != null) return FunkinLua.luaTrace('clipboardSetText: No text specified.');
+			if (text != null)
+				return FunkinLua.luaTrace('clipboardSetText: No text specified.');
 			PsychJNI.clipboardSetText(text);
 		});
 
 		funk.set("manualBackButton", () -> PsychJNI.manualBackButton());
 
-		funk.set("setActivityTitle", function(text:Null<String>):Void
+		funk.set("setActivityTitle", function(text:String):Void
 		{
-			if (text != null) return FunkinLua.luaTrace('setActivityTitle: No text specified.');
+			if (text != null)
+				return FunkinLua.luaTrace('setActivityTitle: No text specified.');
 			PsychJNI.setActivityTitle(text);
 		});
 	}

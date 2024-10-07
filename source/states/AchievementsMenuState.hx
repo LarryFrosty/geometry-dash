@@ -8,6 +8,7 @@ import objects.Bar;
 class AchievementsMenuState extends MusicBeatState
 {
 	public var curSelected:Int = 0;
+
 	public var options:Array<Dynamic> = [];
 	public var grpOptions:FlxSpriteGroup;
 	public var nameText:FlxText;
@@ -205,7 +206,7 @@ class AchievementsMenuState extends MusicBeatState
 				}
 			}
 			
-			if(MusicBeatState.instance.touchPad.buttonC.justPressed || controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
+			if(MusicBeatState.getState().touchPad.buttonC.justPressed || controls.RESET && (options[curSelected].unlocked || options[curSelected].curProgress > 0))
 			{
 				removeTouchPad();
 				openSubState(new ResetAchievementSubstate());
@@ -267,7 +268,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 
 	public function new()
 	{
-                controls.isInSubstate = true;
+		controls.isInSubstate = true;
 
 		super();
 
@@ -277,13 +278,13 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		add(bg);
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
 
-		var text:Alphabet = new Alphabet(0, 180, Language.getPhrase('reset_achievement', 'Reset Achievement:'), true);
-		text.screenCenter(X);
-		text.scrollFactor.set();
-		add(text);
+		var textReset:Alphabet = new Alphabet(0, 180, Language.getPhrase('reset_achievement', 'Reset Achievement:'), true);
+		textReset.screenCenter(X);
+		textReset.scrollFactor.set();
+		add(textReset);
 		
 		var state:AchievementsMenuState = cast FlxG.state;
-		var text:FlxText = new FlxText(50, text.y + 90, FlxG.width - 100, state.options[state.curSelected].displayName, 40);
+		var text:FlxText = new FlxText(50, textReset.y + 90, FlxG.width - 100, state.options[state.curSelected].displayName, 40);
 		text.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.scrollFactor.set();
 		text.borderSize = 2;
@@ -310,7 +311,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 		if(controls.BACK)
 		{
 			close();
-            controls.isInSubstate = false;
+			controls.isInSubstate = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			return;
 		}

@@ -5,6 +5,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileFilter;
 import haxe.Json;
+
 import objects.TypedAlphabet;
 
 import cutscenes.DialogueBoxPsych;
@@ -394,6 +395,7 @@ class DialogueEditorState extends MusicBeatState implements PsychUIEventHandler.
 					break;
 				}
 			}
+
 			var selectedAnim:String = character.jsonFile.animations[curAnim].anim;
 			character.playAnim(selectedAnim, daText.finishedText);
 			animText.text = 'Animation: $selectedAnim (${curAnim + 1} / ${character.jsonFile.animations.length} ) - Press ${controls.mobileC ? 'UP' : 'W'} or ${controls.mobileC ? 'DOWN' : 'S'} to scroll';

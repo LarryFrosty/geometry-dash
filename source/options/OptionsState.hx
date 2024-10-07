@@ -2,7 +2,6 @@ package options;
 
 import states.MainMenuState;
 import backend.StageData;
-import mobile.substates.MobileControlSelectSubState;
 #if (target.threaded)
 import sys.thread.Thread;
 import sys.thread.Mutex;
@@ -34,13 +33,13 @@ class OptionsState extends MusicBeatState
 		switch(label)
 		{
 			case 'Note Colors':
-				openSubState(new options.NotesSubState());
+				openSubState(new options.NotesColorSubState());
 			case 'Controls':
 				switch (controls.mobileC)
 				{
 					case true:
 						persistentUpdate = false;
-						openSubState(new MobileControlSelectSubState());
+						openSubState(new mobile.substates.MobileControlSelectSubState());
 					default: openSubState(new options.ControlsSubState());
 				}
 			case 'Graphics':
@@ -123,7 +122,7 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 		controls.isInSubstate = false;
-        removeTouchPad();
+        	removeTouchPad();
 		addTouchPad('UP_DOWN', 'A_B');
 		persistentUpdate = true;
 	}

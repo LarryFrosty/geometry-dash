@@ -531,11 +531,12 @@ class NoteOffsetState extends MusicBeatState
 			controllerPointer.visible = controls.controllerMode;
 		}
 
-        removeTouchPad();
+		removeTouchPad();
 
 		var str:String;
 		var str2:String;
-		if(onComboMenu){
+		if(onComboMenu)
+		{
 			str = Language.getPhrase('combo_offset', 'Combo Offset');
 			addTouchPad('NONE', 'A_B_C');
 			addTouchPadCamera();

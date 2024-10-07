@@ -74,15 +74,7 @@ class MenuCharacter extends FlxSprite
 					trace('Error loading menu character file of "$character": $e');
 				}
 
-				try 
-				{
-					frames = Paths.getSparrowAtlas('menucharacters/' + charFile.image);
-				}
-				catch(e:Dynamic)
-				{
-					trace(e);
-					return;
-				}
+				frames = Paths.getSparrowAtlas('menucharacters/' + charFile.image);
 				animation.addByPrefix('idle', charFile.idle_anim, 24);
 
 				var confirmAnim:String = charFile.confirm_anim;
@@ -106,4 +98,3 @@ class MenuCharacter extends FlxSprite
 		}
 	}
 }
-

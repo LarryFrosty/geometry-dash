@@ -13,54 +13,57 @@ class ExtraFunctions
 	{
 		// Keyboard & Gamepads
 		funk.set("keyboardJustPressed", function(name:String)
+		{
+			switch (name.toUpperCase())
 			{
-				switch(name.toUpperCase()){
-					case 'SPACE':
-						var space = Reflect.getProperty(FlxG.keys.justPressed, 'SPACE');
-						var mobileShit:Bool = false;
-						if (Controls.instance.mobileC)
-							if (MusicBeatState.instance.mobileControls != null)
-								mobileShit = MusicBeatState.instance.mobileControls.current.buttonExtra.justPressed;
-						return space || mobileShit;
+				case 'SPACE':
+					var space = Reflect.getProperty(FlxG.keys.justPressed, 'SPACE');
+					var mobileShit:Bool = false;
+					if (Controls.instance.mobileC)
+						if (MusicBeatState.getState().mobileControls != null)
+							mobileShit = MusicBeatState.getState().mobileControls.buttonExtra.justPressed;
+					return space || mobileShit;
 
-					default:
-						return Reflect.getProperty(FlxG.keys.justPressed, name.toUpperCase());
-				}
-			});
-			funk.set("keyboardPressed", function(name:String)
+				default:
+					return Reflect.getProperty(FlxG.keys.justPressed, name.toUpperCase());
+			}
+		});
+		funk.set("keyboardPressed", function(name:String)
+		{
+			switch (name.toUpperCase())
 			{
-				switch(name.toUpperCase()){
-					case 'SPACE':
-						var space = Reflect.getProperty(FlxG.keys.pressed, 'SPACE');
-						var mobileShit:Bool = false;
-						if (Controls.instance.mobileC)
-							if (MusicBeatState.instance.mobileControls != null)
-								mobileShit = MusicBeatState.instance.mobileControls.current.buttonExtra.pressed;
-						return space || mobileShit;
+				case 'SPACE':
+					var space = Reflect.getProperty(FlxG.keys.pressed, 'SPACE');
+					var mobileShit:Bool = false;
+					if (Controls.instance.mobileC)
+						if (MusicBeatState.getState().mobileControls != null)
+							mobileShit = MusicBeatState.getState().mobileControls.buttonExtra.pressed;
+					return space || mobileShit;
 
-					default:
-						return Reflect.getProperty(FlxG.keys.pressed, name.toUpperCase());
-				}
-			});
-			funk.set("keyboardReleased", function(name:String)
+				default:
+					return Reflect.getProperty(FlxG.keys.pressed, name.toUpperCase());
+			}
+		});
+		funk.set("keyboardReleased", function(name:String)
+		{
+			switch (name.toUpperCase())
 			{
-				switch(name.toUpperCase()){
-					case 'SPACE':
-						var space = Reflect.getProperty(FlxG.keys.justReleased, 'SPACE');
-						var mobileShit:Bool = false;
-						if (Controls.instance.mobileC)
-							if (MusicBeatState.instance.mobileControls != null)
-								mobileShit = MusicBeatState.instance.mobileControls.current.buttonExtra.justReleased;
-						return space || mobileShit;
+				case 'SPACE':
+					var space = Reflect.getProperty(FlxG.keys.justReleased, 'SPACE');
+					var mobileShit:Bool = false;
+					if (Controls.instance.mobileC)
+						if (MusicBeatState.getState().mobileControls != null)
+							mobileShit = MusicBeatState.getState().mobileControls.buttonExtra.justReleased;
+					return space || mobileShit;
 
-					default:
-						return Reflect.getProperty(FlxG.keys.justReleased, name.toUpperCase());
-				}
-			});
+				default:
+					return Reflect.getProperty(FlxG.keys.justReleased, name.toUpperCase());
+			}
+		});
 	
-			funk.set("anyGamepadJustPressed", function(name:String) return FlxG.gamepads.anyJustPressed(name.toUpperCase()));
-			funk.set("anyGamepadPressed", function(name:String) return FlxG.gamepads.anyPressed(name.toUpperCase()));
-			funk.set("anyGamepadReleased", function(name:String) return FlxG.gamepads.anyJustReleased(name.toUpperCase()));
+		funk.set("anyGamepadJustPressed", function(name:String) return FlxG.gamepads.anyJustPressed(name.toUpperCase()));
+		funk.set("anyGamepadPressed", function(name:String) return FlxG.gamepads.anyPressed(name.toUpperCase()));
+		funk.set("anyGamepadReleased", function(name:String) return FlxG.gamepads.anyJustReleased(name.toUpperCase()));
 
 		funk.set("gamepadAnalogX", function(id:Int, ?leftStick:Bool = true)
 		{

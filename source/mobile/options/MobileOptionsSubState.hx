@@ -18,11 +18,13 @@ class MobileOptionsSubState extends BaseOptionsMenu
 
 	public function new()
 	{
-		#if android if (!externalPaths.contains('\n')) storageTypes = storageTypes.concat(externalPaths); #end
+		#if android if (!externalPaths.contains('\n'))
+			storageTypes = storageTypes.concat(externalPaths); #end
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
 
-		option = new Option('Extra Controls', 'Select how many extra buttons you prefere to have\nThey can be used for mechanics with LUA or HScript.', 'extraButtons', STRING, exControlTypes);
+		option = new Option('Extra Controls', 'Select how many extra buttons you prefere to have\nThey can be used for mechanics with LUA or HScript.',
+			'extraButtons', STRING, exControlTypes);
 		addOption(option);
 
 		option = new Option('Mobile Controls Opacity',
@@ -35,18 +37,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		option.onChange = () ->
 		{
 			touchPad.alpha = curOption.getValue();
-			if (Controls.instance.mobileC)
-			{
-				FlxG.sound.volumeUpKeys = [];
-				FlxG.sound.volumeDownKeys = [];
-				FlxG.sound.muteKeys = [];
-			}
-			else
-			{
-				FlxG.sound.volumeUpKeys = [FlxKey.PLUS, FlxKey.NUMPADPLUS];
-				FlxG.sound.volumeDownKeys = [FlxKey.MINUS, FlxKey.NUMPADMINUS];
-				FlxG.sound.muteKeys = [FlxKey.ZERO, FlxKey.NUMPADZERO];
-			}
+			ClientPrefs.toggleVolumeKeys();
 		};
 		addOption(option);
 
@@ -63,7 +54,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		if (MobileControls.mode == 3)
+		if (MobileData.mode == 3)
 		{
 			option = new Option('Hitbox Design', 'Choose how your hitbox should look like.', 'hitboxType', STRING, hintOptions);
 			addOption(option);

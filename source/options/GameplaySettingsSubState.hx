@@ -1,7 +1,5 @@
 package options;
 
-import lime.ui.Haptic;
-
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
 	public function new()
@@ -140,6 +138,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	function onChangeVibration()
 	{
 		if(ClientPrefs.data.gameOverVibration)
-			Haptic.vibrate(0, 500);
+			lime.ui.Haptic.vibrate(0, 500);
 	}
 }

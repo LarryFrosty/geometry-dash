@@ -4,6 +4,8 @@ import states.stages.objects.*;
 import substates.GameOverSubstate;
 import cutscenes.DialogueBox;
 
+import openfl.utils.Assets as OpenFlAssets;
+
 class School extends BaseStage
 {
 	var bgGirls:BackgroundGirls;
@@ -109,7 +111,7 @@ class School extends BaseStage
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else
-		if (!openfl.Assets.exists(file))
+		if (!OpenFlAssets.exists(file))
 		#end
 		{
 			file = Paths.txt('$songName/${songName}Dialogue');
@@ -118,7 +120,7 @@ class School extends BaseStage
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else
-		if (!openfl.Assets.exists(file))
+		if (!OpenFlAssets.exists(file))
 		#end
 		{
 			startCountdown();

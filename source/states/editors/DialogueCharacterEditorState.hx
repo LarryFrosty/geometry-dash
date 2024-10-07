@@ -86,35 +86,34 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 		box.updateHitbox();
 		hudGroup.add(box);
 
-		if (controls.mobileC) {
-		TIP_TEXT_MAIN =
-	'\nX - Reset Camera
-	\nY - Toggle Speech Bubble
-	\nA - Reset text';
-	
-	     TIP_TEXT_OFFSET =
-	'\nX - Reset Camera
-	\nY - Toggle Ghosts
-	\nTop Arrow Keys - Move Looping animation offset (Red)
-	\nBottom Arrow Keys - Move Idle/Finished animation offset (Blue)
-	\nHold Z to move offsets 10x faster';
-	} else {
-	    TIP_TEXT_MAIN =
-	'JKLI - Move camera (Hold Shift to move 4x faster)
-	\nQ/E - Zoom out/in
-	\nR - Reset Camera
-	\nH - Toggle Speech Bubble
-	\nSpace - Reset text';
-	
-	     TIP_TEXT_OFFSET =
-	'JKLI - Move camera (Hold Shift to move 4x faster)
-	\nQ/E - Zoom out/in
-	\nR - Reset Camera
-	\nH - Toggle Ghosts
-	\nWASD - Move Looping animation offset (Red)
-	\nArrow Keys - Move Idle/Finished animation offset (Blue)
-	\nHold Shift to move offsets 10x faster';
-	     }
+		if (controls.mobileC)
+		{
+			TIP_TEXT_MAIN = '\nX - Reset Camera
+			\nY - Toggle Speech Bubble
+			\nA - Reset text';
+
+			TIP_TEXT_OFFSET = '\nX - Reset Camera
+			\nY - Toggle Ghosts
+			\nTop Arrow Keys - Move Looping animation offset (Red)
+			\nBottom Arrow Keys - Move Idle/Finished animation offset (Blue)
+			\nHold Z to move offsets 10x faster';
+		}
+		else
+		{
+			TIP_TEXT_MAIN = 'JKLI - Move camera (Hold Shift to move 4x faster)
+			\nQ/E - Zoom out/in
+			\nR - Reset Camera
+			\nH - Toggle Speech Bubble
+			\nSpace - Reset text';
+
+			TIP_TEXT_OFFSET = 'JKLI - Move camera (Hold Shift to move 4x faster)
+			\nQ/E - Zoom out/in
+			\nR - Reset Camera
+			\nH - Toggle Ghosts
+			\nWASD - Move Looping animation offset (Red)
+			\nArrow Keys - Move Idle/Finished animation offset (Blue)
+			\nHold Shift to move offsets 10x faster';
+		}
 
 		tipText = new FlxText(10, 10, FlxG.width - 20, TIP_TEXT_MAIN, 8);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
