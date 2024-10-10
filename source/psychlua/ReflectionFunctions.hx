@@ -52,7 +52,7 @@ class ReflectionFunctions
 			var myClass:Dynamic = Type.resolveClass(classVar);
 			if(myClass == null)
 			{
-				FunkinLua.luaTrace('getPropertyFromClass: Class $classVar not found', false, false, FlxColor.RED);
+				FunkinLua.luaTrace('setPropertyFromClass: Class $classVar not found', false, false, FlxColor.RED);
 				return null;
 			}
 
@@ -101,7 +101,7 @@ class ReflectionFunctions
 			FunkinLua.luaTrace('getPropertyFromGroup: Group/Array $group doesn\'t exist!', false, false, FlxColor.RED);
 			return null;
 		});
-		funk.set("setPropertyFromGroup", function(group:String, index:Int, variable:Dynamic, value:Dynamic, ?allowMaps:Bool = false) {
+		funk.set("setPropertyFromGroup", function(group:String, index:Int, variable:Dynamic, value:Dynamic, ?allowMaps:Bool = false, ?allowInstances:Bool = false) {
 			var split:Array<String> = group.split('.');
 			var realObject:Dynamic = null;
 			if(split.length > 1)
@@ -119,14 +119,14 @@ class ReflectionFunctions
 						{
 							if(Type.typeof(variable) == ValueType.TInt)
 							{
-								leArray[variable] = value;
+								leArray[variable] = allowInstances ? parseSingleInstance(value) : value;
 								return value;
 							}
-							LuaUtils.setGroupStuff(leArray, variable, value, allowMaps);
+							LuaUtils.setGroupStuff(leArray, variable, allowInstances ? parseSingleInstance(value) : value, allowMaps);
 						}
 
 					default: //Is Group
-						LuaUtils.setGroupStuff(realObject.members[index], variable, value, allowMaps);
+						LuaUtils.setGroupStuff(realObject.members[index], variable, allowInstances ? parseSingleInstance(value) : value, allowMaps);
 				}
 			}
 			else FunkinLua.luaTrace('setPropertyFromGroup: Group/Array $group doesn\'t exist!', false, false, FlxColor.RED);
@@ -182,7 +182,7 @@ class ReflectionFunctions
 			switch(Type.typeof(groupOrArray))
 			{
 				case TClass(Array): //Is Array
-					if(obj == null) obj = groupOrArray[index];
+					if(obj == null) obj = groupOrArray.members[index];
 					groupOrArray.remove(obj, true);
 					if(destroy) obj.destroy();
 
@@ -192,7 +192,7 @@ class ReflectionFunctions
 						groupOrArray.remove(obj);
 						if(destroy) obj.destroy();
 					}
-					else groupOrArray.remove(groupOrArray.members[index]);
+					else groupOrArray.remove(groupOrArray[index]);
 			}
 		});
 		
