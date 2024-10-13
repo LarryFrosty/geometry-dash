@@ -1,7 +1,7 @@
 name: Android
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
   workflow_dispatch:
 jobs:
@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {update: false}
+          - {install: false}
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -29,21 +29,28 @@ jobs:
             /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
-          key: cache-build-test
+          key: cache-android-build-new
 
       - name: Setup Haxelib
         run: haxelib setup ~/haxelib
 
-      - name: Update Libraries
-        if: matrix.config.update
+      - name: Install Libraries
+        if: matrix.config.install
         run: |
-          yes | haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
-          haxelib install openfl
           yes | haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp --quiet
-          haxelib install flixel
-          haxelib install flixel-addons
-          haxelib install flixel-ui
-          yes | haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools 727693f0a76c6e396df675bb0ed95d7639a4db01 --quiet --skip-dependencies
+          yes | haxelib git lime https://github.com/mcagabe19-stuff/lime --quiet
+          haxelib install openfl 9.3.3 --quiet
+          haxelib install flixel 5.6.1 --quiet
+          haxelib install flixel-addons 3.2.2 --quiet
+          haxelib install flixel-tools 1.5.1 --quiet
+          haxelib install hscript-iris 1.1.0 --quiet
+          haxelib install tjson 1.4.0 --quiet
+          yes | haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 768740a56b26aa0c072720e0d1236b94afe68e3e --quiet
+          yes | haxelib git linc_luajit https://github.com/mcagabe19-stuff/linc_luajit-rewriten --quiet
+          yes | haxelib git hxvlc https://github.com/MAJigsaw77/hxvlc 70e7f5f3e76d526ac6fb8f0e6665efe7dfda589d --quiet --skip-dependencies
+          yes | haxelib git funkin.vis https://github.com/FunkinCrew/funkVis 9cac20547dd41505928eeca9c762c7e6b348f6f3 --quiet --skip-dependencies
+          yes | haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666 --quiet
+          yes | haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools df9dfd0cda74e5460ae3afcfff1081c50959ed4a --quiet --skip-dependencies
 
       - name: Configure Android
         run: |
@@ -53,7 +60,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Compile
-        run: haxelib run lime build android
+        run: haxelib run lime build android -D officialBuild
 
       - name: Clear Previous Cache
         uses: actions/github-script@main
@@ -66,14 +73,14 @@ jobs:
             	})
             	if (typeof caches.data.actions_caches != null && caches.data.actions_caches.length > 0) {
             		for (const cache of caches.data.actions_caches) {
-            			if (cache.key == "cache-build-test") {
+            			if (cache.key == "cache-android-build-new") {
             				console.log('Clearing ' + cache.key + '...')
             				await github.rest.actions.deleteActionsCacheById({
             					owner: context.repo.owner,
             					repo: context.repo.repo,
             					cache_id: cache.id,
             				})
-            				console.log("Previous cache cleared!")
+            				console.log("Previous Cache Cleared!")
             			}
             		}
             	}
@@ -89,11 +96,11 @@ jobs:
             /home/runner/haxelib/
             export/release/android/haxe/
             export/release/android/obj/
-          key: cache-build-test
+          key: cache-android-build-new
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: Test
+          name: PsychEngine-release
           path: export/release/android/bin/app/build/outputs/apk/release
           if-no-files-found: error

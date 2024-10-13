@@ -2,10 +2,13 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Test" file="Test" packageName="com.haxeflixel.test" package="com.haxeflixel.test" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Psych Engine Modified" file="PsychEngineModified" packageName="com.shadowmario.psychenginemodified" package="com.shadowmario.psychenginemodified" main="Main" version="0.2.8" company="ShadowMario" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
+
+	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
+	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -14,6 +17,25 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
+	
+	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
+
+	<define name="MODS_ALLOWED" if="desktop || mobile || emscripten" />
+	<define name="HSCRIPT_ALLOWED" if="desktop || mobile || web" />
+	<define name="LUA_ALLOWED" if="desktop || mobile" unless="hl"/>
+	<define name="ACHIEVEMENTS_ALLOWED" />
+	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
+	<define name="TRANSLATIONS_ALLOWED" unless="html5"/>	
+	<define name="IRIS_DEBUG"/>
+	
+	<define name="SHOW_LOADING_SCREEN" />
+	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
+	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits || hl || rpi"/> <!-- i'll keep this cuz it makes vscode think i don't use videos -->
+
+	<section if="officialBuild">
+		<define name="TITLE_SCREEN_EASTER_EGG"/>
+		<define name="BASE_GAME_FILES" />
+	</section>
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -36,17 +58,69 @@
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
+        <set name="BUILD_DIR" value="export/rpi" if="rpi" />
+
 	<classpath name="source" />
 
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
 
+	<define name="PRELOAD_ALL" unless="web" />
+	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+
 	<!-- Assets -->
 	<assets path="assets/fonts" />
+	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
+	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
+	<assets path="assets/embed"         exclude="*.ogg" if="web" embed="true"/>
+	<assets path="assets/embed"         exclude="*.mp3" unless="web" embed="true"/>
+	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
+	<assets path="assets/songs"         exclude="*.ogg" if="web"/>
+	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/>
+	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
+	<section if="TITLE_SCREEN_EASTER_EGG">
+		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
+		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
+	</section>
+
+	<section if="TRANSLATIONS_ALLOWED">
+		<assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
+		<assets path="assets/translations" rename="assets" exclude="*.mp3"  unless="web"/>
+	</section>
+
+	<section if="BASE_GAME_FILES">
+		<assets path="assets/base_game" rename="assets" exclude="*.ogg" if="web"/>
+		<assets path="assets/base_game" rename="assets" exclude="*.mp3"  unless="web"/>
+		<haxelib name="grig.audio" if="BASE_GAME_FILES"/>
+		<haxelib name="funkin.vis" if="BASE_GAME_FILES"/>
+	</section>
+
+	<section if="NO_PRELOAD_ALL">
+	<library name="songs"         preload="false" />
+	<library name="week_assets"   preload="false" />
+	</section>
+
+	<section if="MODS_ALLOWED">
+		<assets path='example_mods' rename='mods' embed='false'/>
+	</section>
+	<assets path='art/readme.txt' rename='do NOT readme.txt' unless="mobile"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
-	<haxelib name="flixel-addons" />
+	<haxelib name="flixel" version="5.6.1"/>
+	<haxelib name="flixel-addons" version="3.2.2"/>
+	<haxelib name="tjson" version="1.4.0"/>
+
+	<!--Psych stuff needed-->
+	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED"/>
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
+	<haxelib name="flxanimate" unless="html5"/>
+	<haxelib name="tjson"/>
+	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio" />
 
 	<!-- Android Specific-->
 	<haxelib name="extension-androidtools" if="android" />
@@ -119,6 +193,9 @@
 	<!-- Do whatever you want I'm tired uninstall and install everytime -->
 	<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" if="android" unless="debug" />
 
+	<!--Avoid memory leaks with for loops in HScript-->
+	<haxedef name="loop_unroll_max_cost" value="25" />
+
 	<architecture name="arm64" exclude="armv7" if="android" />
 
 	<!--Macro fixes-->
@@ -126,6 +203,8 @@
 	<haxeflag name="--macro" value="include('my.pack')" />
 
 	<!-- _________________________________ Custom _______________________________ -->
+
+	<assets path='art/iconOG.png' rename='icon.png' if="linux" />
 	
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
