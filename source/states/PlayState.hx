@@ -50,6 +50,7 @@ import psychlua.HScript;
 
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
+import crowplexus.hscript.Expr.Error as IrisError;
 #end
 
 /**
@@ -3307,8 +3308,8 @@ class PlayState extends MusicBeatState
 		var newScript:HScript = null;
 		newScript = new HScript(null, file);
 		newScript.executeFunction('onCreate');
-		if(Std.isOfType(newScript.returnValue, crowplexus.hscript.Expr.Error)) {
-			addTextToDebug('ERROR ON LOADING ($file) - ${e.toString}', FlxColor.RED);
+		if(Std.isOfType(newScript.returnValue, IrisError)) {
+			addTextToDebug('ERROR ON LOADING ($file) - ${newScript.returnValue.toString}', FlxColor.RED);
 			newScript.destroy();
 			return;
 		}
