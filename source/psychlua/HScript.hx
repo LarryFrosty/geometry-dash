@@ -456,6 +456,7 @@ class HScript extends Iris
 			#if HSCRIPT_ALLOWED
 			try
 			{
+				final retVal:IrisCall = funk.hscript.executeFunction(funcToRun, funcArgs);
 				if (retVal != null) {
 					return (LuaUtils.typeSupported(retVal.returnValue)) ? retVal.returnValue : null;
 				}
