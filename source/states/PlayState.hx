@@ -3309,7 +3309,7 @@ class PlayState extends MusicBeatState
 		newScript = new HScript(null, file);
 		newScript.executeFunction('onCreate');
 		if(Std.isOfType(newScript.returnValue, IrisError)) {
-			addTextToDebug('ERROR ON LOADING ($file) - ${newScript.returnValue.toString}', FlxColor.RED);
+			addTextToDebug('ERROR ON LOADING ($file) - ${newScript.returnValue.toString()}', FlxColor.RED);
 			newScript.destroy();
 			return;
 		}
