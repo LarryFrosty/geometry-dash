@@ -146,7 +146,7 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		#end
 
 		var option:Option = new Option('Mouse Menus:',
-			"if checked, will allow " + (#if android "touching" #else "the mouse") + " on the menus.",
+			"if checked, will allow " + (#if android "touching" #else "the mouse" #end) + " on the menus.",
 			'mouseMenus',
 			BOOL);
 		addOption(option);
