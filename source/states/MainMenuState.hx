@@ -96,7 +96,7 @@ class MainMenuState extends MusicBeatState
 
 		super.create();
 
-		FlxG.camera.follow(camFollow, null, 0.15);
+		FlxG.camera.follow(camFollow, null, 9);
 	}
 
 	function createMenuItem(name:String, x:Float, y:Float):FlxSprite
@@ -108,8 +108,11 @@ class MainMenuState extends MusicBeatState
 		menuItem.animation.play('idle');
 		menuItem.updateHitbox();
 		
+		var scr:Float = (optionShit.length - 4) * 0.135;
+		if (optionShit.length < 6)
+			scr = 0;
+		menuItem.scrollFactor.set(0, scr);
 		menuItem.antialiasing = ClientPrefs.data.antialiasing;
-		menuItem.scrollFactor.set();
 		menuItems.add(menuItem);
 		return menuItem;
 	}
