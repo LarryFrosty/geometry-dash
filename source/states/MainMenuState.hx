@@ -157,7 +157,7 @@ class MainMenuState extends MusicBeatState
 					}
 				}
 
-				if(distItem != -1 && selectedItem != menuItems.members[distItem])
+				if(distItem != -1 && curSelected != distItem)
 				{
 					curSelected = distItem;
 					changeItem();
@@ -190,7 +190,7 @@ class MainMenuState extends MusicBeatState
 
 					FlxFlicker.flicker(menuItems.members[curSelected], 1, 0.06, false, false, function(flick:FlxFlicker)
 					{
-						switch (option)
+						switch (optionShit[curSelected])
 						{
 							case 'story_mode':
 								MusicBeatState.switchState(new StoryMenuState());
@@ -223,7 +223,7 @@ class MainMenuState extends MusicBeatState
 					
 					for (memb in menuItems)
 					{
-						if(memb == item)
+						if(memb == menuItems.members[curSelected])
 							continue;
 
 						FlxTween.tween(memb, {alpha: 0}, 0.4, {ease: FlxEase.quadOut});
