@@ -51,7 +51,7 @@ class HScript extends Iris
 		else
 		{
 			hs.varsToBring = varsToBring;
-			var prevCode:Dynamic = hs.scriptCode;
+			var prevCode:String = hs.scriptCode;
 			try
 			{
 				if (hs.scriptCode != code) {
@@ -68,8 +68,8 @@ class HScript extends Iris
 				hs.scriptCode = prevCode; 
 				return e;
 			}
-			return null;
 		}
+		return null;
 	}
 	#end
 
