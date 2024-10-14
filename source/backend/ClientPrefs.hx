@@ -88,11 +88,11 @@ import states.TitleState;
 	public var goodWindow:Int = 90;
 	public var badWindow:Int = 135;
 	public var safeFrames:Float = 10;
-	public var guitarHeroSustains:Bool = true;
+	public var guitarHeroSustains:Bool = false;
 	public var discordRPC:Bool = true;
 	public var loadingScreen:Bool = true;
 	public var language:String = 'en-US';
-	public var mouseMenus:Bool = true;
+	public var mouseMenus:Bool = #if android false #else true #end;
 }
 
 class ClientPrefs {

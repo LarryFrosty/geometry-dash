@@ -3305,20 +3305,15 @@ class PlayState extends MusicBeatState
 	public function initHScript(file:String)
 	{
 		var newScript:HScript = null;
-		try
-		{
-			newScript = new HScript(null, file);
-			newScript.executeFunction('onCreate');
-			trace('initialized hscript interp successfully: $file');
-			hscriptArray.push(newScript);
+		newScript = new HScript(null, file);
+		newScript.executeFunction('onCreate');
+		if(Std.isOfType(newScript.returnValue, crowplexus.hscript.Expr.Error)) {
+			addTextToDebug('ERROR ON LOADING ($file) - ${e.toString}', FlxColor.RED);
+			newScript.destroy();
+			return;
 		}
-		catch(e:Dynamic)
-		{
-			addTextToDebug('ERROR ON LOADING ($file) - $e', FlxColor.RED);
-			var newScript:HScript = cast (Iris.instances.get(file), HScript);
-			if(newScript != null)
-				newScript.destroy();
-		}
+		trace('initialized hscript interp successfully: $file');
+		hscriptArray.push(newScript);
 	}
 	#end
 
@@ -3404,9 +3399,9 @@ class PlayState extends MusicBeatState
 				if(myValue != null && !excludeValues.contains(myValue))
 					returnVal = myValue;
 			}
-			catch(e:Dynamic)
+			catch(e:IrisError)
 			{
-				addTextToDebug('ERROR (${script.origin}: $funcToCall) - $e', FlxColor.RED);
+				addTextToDebug('ERROR (${script.origin}: $funcToCall) - ${e.toString()}', FlxColor.RED);
 			}
 		}
 		#end

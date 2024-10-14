@@ -92,10 +92,7 @@ class MainMenuState extends MusicBeatState
 		#end
 		#end
 
-		if (allowMouse)
-			addTouchPad('NONE', 'E');
-		else
-			addTouchPad('UP_DOWN', 'A_B_E');
+		addTouchPad('UP_DOWN', 'A_B_E');
 
 		super.create();
 
@@ -252,6 +249,6 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.members[curSelected].animation.play('selected');
 		menuItems.members[curSelected].centerOffsets();
-		camFollow.y = menuItems.members[curSelected].getGraphicMidpoint().y;
+		camFollow.y = menuItems.members[curSelected].getGraphicMidpoint().y - (menuItems.length > 4 ? menuItems.length * 8 : 0);
 	}
 }
