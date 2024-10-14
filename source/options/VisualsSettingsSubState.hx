@@ -144,6 +144,12 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeVSync;
 		addOption(option);
 		#end
+
+		var option:Option = new Option('Mouse Menus:',
+			"if checked, will allow " + (#if android "touching" #else "the mouse") + " on the menus.",
+			'mouseMenus',
+			BOOL);
+		addOption(option);
 		
 		var option:Option = new Option('Pause Music:',
 			"What song do you prefer for the Pause Screen?",
