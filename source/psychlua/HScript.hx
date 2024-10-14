@@ -32,11 +32,7 @@ class HScript extends Iris
 
 	public function errorCaught(e:IrisError, ?funcName:String) {
 		var header:String = (funcName != null ? '$origin: $funcName' : origin); 
-		#if LUA_ALLOWED 
-		FunkinLua.luaTrace('ERROR ($header) - ${e.toString()}', false, false, FlxColor.RED); 
-		#else 
-		PlayState.instance.addTextToDebug('ERROR ($header) - ${e.toString()}', FlxColor.RED); 
-		#end 
+		PlayState.instance.addTextToDebug('ERROR ($header) - ${e.toString()}', FlxColor.RED);  
 	}
 
 	public static function initHaxeModuleCode(parent:FunkinLua, code:String, ?varsToBring:Any = null)
