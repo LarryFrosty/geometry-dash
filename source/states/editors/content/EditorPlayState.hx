@@ -317,7 +317,6 @@ class EditorPlayState extends MusicBeatSubstate
 		add(notes);
 
 		var daBpm:Float = (PlayState.SONG.notes[0].changeBPM == true) ? PlayState.SONG.notes[0].bpm : PlayState.SONG.bpm;
-
 		var oldNote:Note = null;
 
 		// Section Time/Crochet
@@ -332,15 +331,17 @@ class EditorPlayState extends MusicBeatSubstate
 			{
 				if(PlayState.SONG.notes[noteSec].changeBPM == true)
 					tempBpm = PlayState.SONG.notes[noteSec].bpm;
+
 				secTime += Conductor.calculateCrochet(tempBpm) * (Math.round(4 * section.sectionBeats) / 4);
 				cachedSectionTimes.push(secTime);
 			}
 		}
+
 		// Load Notes
 		for (note in _noteList)
 		{
 			if(note == null || note.strumTime < startPos) continue;
-
+			
 			while(cachedSectionTimes.length > noteSec + 1 && cachedSectionTimes[noteSec + 1] <= note.strumTime)
 			{
 				noteSec++;
@@ -366,6 +367,7 @@ class EditorPlayState extends MusicBeatSubstate
 			swagNote.sustainLength = note.sustainLength;
 			swagNote.gfNote = note.gfNote;
 			swagNote.noteType = note.noteType;
+
 			swagNote.scrollFactor.set();
 			unspawnNotes.push(swagNote);
 

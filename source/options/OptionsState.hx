@@ -35,13 +35,13 @@ class OptionsState extends MusicBeatState
 			case 'Note Colors':
 				openSubState(new options.NotesColorSubState());
 			case 'Controls':
-				switch (controls.mobileC)
+				if (controls.mobileC)
 				{
-					case true:
-						persistentUpdate = false;
-						openSubState(new mobile.substates.MobileControlSelectSubState());
-					default: openSubState(new options.ControlsSubState());
+					persistentUpdate = false;
+					openSubState(new mobile.substates.MobileControlSelectSubState());
 				}
+				else
+					openSubState(new options.ControlsSubState());
 			case 'Graphics':
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals':

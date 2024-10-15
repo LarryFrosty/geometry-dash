@@ -272,6 +272,7 @@ class FunkinLua {
 						return true;
 			}
 
+			#if HSCRIPT_ALLOWED
 			var hscriptPath:String = findScript(scriptFile, '.hx');
 			if(hscriptPath != null)
 			{
@@ -279,6 +280,7 @@ class FunkinLua {
 					if(hscriptInstance.origin == hscriptPath)
 						return true;
 			}
+			#end
 			return false;
 		});
 
