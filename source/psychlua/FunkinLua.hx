@@ -568,7 +568,7 @@ class FunkinLua {
 			if(penisExam != null) {
 				var curColor:FlxColor = penisExam.color;
 				curColor.alphaFloat = penisExam.alpha;
-				var newColor:FlxColor = CoolUtil.colorFromString(targetColor, true);
+				var newColor:FlxColor = CoolUtil.colorFromString(targetColor);
 				if(targetColor.length == 6) newColor.alphaFloat = penisExam.alpha;
 				
 				if(tag != null)
