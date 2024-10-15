@@ -251,6 +251,10 @@ class LuaUtils
 				return obj;
 		}
 	}
+
+	public static function typeSupported(value:Dynamic) {
+		return (value == null || isOfTypes(value, [Bool, Int, Float, String, Array]) || Type.typeof(value) == Type.ValueType.TObject);
+	}
 	
 	public static function isOfTypes(value:Any, types:Array<Dynamic>)
 	{
@@ -401,26 +405,10 @@ class LuaUtils
 		return 'linux';
 		#elseif mac
 		return 'mac';
-		#elseif hl
-		return 'hashlink';
-		#elseif (html5 || emscripten || nodejs || winjs || electron)
+		#elseif html5
 		return 'browser';
 		#elseif android
 		return 'android';
-		#elseif webos
-		return 'webos';
-		#elseif tvos
-		return 'tvos';
-		#elseif watchos
-		return 'watchos';
-		#elseif air
-		return 'air';
-		#elseif flash
-		return 'flash';
-		#elseif (ios || iphonesim)
-		return 'ios';
-		#elseif neko
-		return 'neko';
 		#elseif switch
 		return 'switch';
 		#else

@@ -50,6 +50,7 @@ import psychlua.HScript;
 
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
+import crowplexus.hscript.Expr.Error as IrisError;
 #end
 
 /**
@@ -3306,25 +3307,21 @@ class PlayState extends MusicBeatState
 	public function initHScript(file:String)
 	{
 		var newScript:HScript = null;
-		try
+		newScript = new HScript(null, file);
+		newScript.executeFunction('onCreate');
+		if(Std.isOfType(newScript.returnValue, IrisError))
 		{
-			newScript = new HScript(null, file);
-			newScript.executeFunction('onCreate');
-			trace('initialized hscript interp successfully: $file');
-			hscriptArray.push(newScript);
+			addTextToDebug('ERROR ON LOADING ($file) - ${newScript.returnValue.toString()}', FlxColor.RED);
+			newScript.destroy();
+			return;
 		}
-		catch(e:Dynamic)
-		{
-			addTextToDebug('ERROR ON LOADING ($file) - $e', FlxColor.RED);
-			var newScript:HScript = cast (Iris.instances.get(file), HScript);
-			if(newScript != null)
-				newScript.destroy();
-		}
+		trace('initialized hscript interp successfully: $file');
+		hscriptArray.push(newScript);
 	}
 	#end
 
 	public function callOnScripts(funcToCall:String, args:Array<Dynamic> = null, ignoreStops = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
-		var returnVal:String = LuaUtils.Function_Continue;
+		var returnVal:Dynamic = LuaUtils.Function_Continue;
 		if(args == null) args = [];
 		if(exclusions == null) exclusions = [];
 		if(excludeValues == null) excludeValues = [LuaUtils.Function_Continue];
@@ -3335,7 +3332,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function callOnLuas(funcToCall:String, args:Array<Dynamic> = null, ignoreStops = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
-		var returnVal:String = LuaUtils.Function_Continue;
+		var returnVal:Dynamic = LuaUtils.Function_Continue;
 		#if LUA_ALLOWED
 		if(args == null) args = [];
 		if(exclusions == null) exclusions = [];
@@ -3374,7 +3371,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function callOnHScript(funcToCall:String, args:Array<Dynamic> = null, ?ignoreStops:Bool = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
-		var returnVal:String = LuaUtils.Function_Continue;
+		var returnVal:Dynamic = LuaUtils.Function_Continue;
 
 		#if HSCRIPT_ALLOWED
 		if(exclusions == null) exclusions = new Array();
@@ -3394,7 +3391,7 @@ class PlayState extends MusicBeatState
 			try
 			{
 				var callValue = script.call(funcToCall, args);
-				var myValue:Dynamic = callValue.returnValue;
+				var myValue:Dynamic = callValue?.returnValue;
 
 				if((myValue == LuaUtils.Function_StopHScript || myValue == LuaUtils.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
 				{
@@ -3405,9 +3402,9 @@ class PlayState extends MusicBeatState
 				if(myValue != null && !excludeValues.contains(myValue))
 					returnVal = myValue;
 			}
-			catch(e:Dynamic)
+			catch(e:IrisError)
 			{
-				addTextToDebug('ERROR (${script.origin}: $funcToCall) - $e', FlxColor.RED);
+				addTextToDebug('ERROR (${script.origin}: $funcToCall) - ${e.toString()}', FlxColor.RED);
 			}
 		}
 		#end
