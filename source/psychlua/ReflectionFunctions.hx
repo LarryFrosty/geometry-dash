@@ -190,7 +190,7 @@ class ReflectionFunctions
 					else groupOrArray.remove(groupOrArray[index]);
 
 				default: //Is Group
-					if(obj == null) obj = groupOrArray.members[index];
+					if(obj == null) obj = Reflect.getProperty(groupOrArray, 'members')[index]; // Reflect because of FlxTypedSpriteGroups
 					groupOrArray.remove(obj, true);
 					if(destroy) obj.destroy();
 			}

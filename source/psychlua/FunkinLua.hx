@@ -162,13 +162,10 @@ class FunkinLua {
 			set('practice', game.practiceMode);
 	
 			for (i in 0...4) {
-				var strum:StrumNote = game.playerStrums != null ? game.playerStrums.members[i] : null;
-				set('defaultPlayerStrumX' + i, strum != null ? strum.x : 0);
-				set('defaultPlayerStrumY' + i, strum != null ? strum.y : 0);
-
-				strum = game.opponentStrums != null ? game.opponentStrums.members[i] : null;
-				set('defaultOpponentStrumX' + i, strum != null ? strum.x : 0);
-				set('defaultOpponentStrumY' + i, strum != null ? strum.y : 0);
+				set('defaultPlayerStrumX' + i, 0);
+				set('defaultPlayerStrumY' + i, 0);
+				set('defaultOpponentStrumX' + i, 0);
+				set('defaultOpponentStrumY' + i, 0);
 			}
 	
 			// Default character data
