@@ -570,10 +570,23 @@ class FunkinLua {
 			var penisExam:Dynamic = LuaUtils.tweenPrepare(tag, vars);
 			if(penisExam != null) {
 				var curColor:FlxColor = penisExam.color;
-				var newColor:FlxColor = CoolUtil.colorFromString(targetColor);
 				curColor.alphaFloat = penisExam.alpha;
-				if(targetColor.length == 6) { // No alpha channel in color
-					newColor.alphaFloat = penisExam.alpha;
+
+				targetColor = targetColor.trim().toUpperCase();
+				if(targetColor.startsWith('0x')) targetColor = targetColor.substring(2);
+				var newColor:FlxColor = FlxColor.fromString('#$targetColor');
+				if(newColor != null)
+				{
+					if(targetColor.length == 6)
+					{
+						newColor.alphaFloat = penisExam.alpha;
+					}
+				}
+				else
+				{
+					newColor = FlxColor.fromString(targetColor);
+					if(newColor == null)
+						newColor = FlxColor.WHITE;
 				}
 				
 				if(tag != null)
