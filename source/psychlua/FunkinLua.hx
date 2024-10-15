@@ -571,23 +571,8 @@ class FunkinLua {
 			if(penisExam != null) {
 				var curColor:FlxColor = penisExam.color;
 				curColor.alphaFloat = penisExam.alpha;
-
-				targetColor = targetColor.trim().toUpperCase();
-				if(targetColor.startsWith('0x')) targetColor = targetColor.substring(2);
-				var newColor:FlxColor = FlxColor.fromString('#$targetColor');
-				if(newColor != null)
-				{
-					if(targetColor.length == 6)
-					{
-						newColor.alphaFloat = penisExam.alpha;
-					}
-				}
-				else
-				{
-					newColor = FlxColor.fromString(targetColor);
-					if(newColor == null)
-						newColor = FlxColor.WHITE;
-				}
+				var newColor:FlxColor = CoolUtil.colorFromString(targetColor, true);
+				if(targetColor.length == 6) newColor.alphaFloat = penisExam.alpha;
 				
 				if(tag != null)
 				{
