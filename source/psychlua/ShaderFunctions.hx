@@ -12,7 +12,7 @@ class ShaderFunctions
 		funk.addLocalCallback("initLuaShader", function(name:String) {
 			if(!ClientPrefs.data.shaders) return false;
 
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			return funk.initLuaShader(name);
 			#else
 			FunkinLua.luaTrace("initLuaShader: Platform unsupported for Runtime Shaders!", false, false, FlxColor.RED);
@@ -23,7 +23,7 @@ class ShaderFunctions
 		funk.addLocalCallback("setSpriteShader", function(obj:String, shader:String) {
 			if(!ClientPrefs.data.shaders) return false;
 
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			if(!funk.runtimeShaders.exists(shader) && !funk.initLuaShader(shader))
 			{
 				FunkinLua.luaTrace('setSpriteShader: Shader $shader is missing!', false, false, FlxColor.RED);
@@ -52,7 +52,7 @@ class ShaderFunctions
 
 
 		funk.set("getShaderBool", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -66,7 +66,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("getShaderBoolArray", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -80,7 +80,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("getShaderInt", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -94,7 +94,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("getShaderIntArray", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -108,7 +108,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("getShaderFloat", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -122,7 +122,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("getShaderFloatArray", function(obj:String, prop:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if (shader == null)
 			{
@@ -138,7 +138,7 @@ class ShaderFunctions
 
 
 		funk.set("setShaderBool", function(obj:String, prop:String, value:Bool) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -153,7 +153,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("setShaderBoolArray", function(obj:String, prop:String, values:Dynamic) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -168,7 +168,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("setShaderInt", function(obj:String, prop:String, value:Int) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -183,7 +183,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("setShaderIntArray", function(obj:String, prop:String, values:Dynamic) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -198,7 +198,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("setShaderFloat", function(obj:String, prop:String, value:Float) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -213,7 +213,7 @@ class ShaderFunctions
 			#end
 		});
 		funk.set("setShaderFloatArray", function(obj:String, prop:String, values:Dynamic) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
@@ -230,7 +230,7 @@ class ShaderFunctions
 		});
 
 		funk.set("setShaderSampler2D", function(obj:String, prop:String, bitmapdataPath:String) {
-			#if (!flash && sys)
+			#if (!flash && MODS_ALLOWED && sys)
 			var shader:FlxRuntimeShader = getShader(obj);
 			if(shader == null)
 			{
