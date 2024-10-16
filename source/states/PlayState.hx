@@ -1340,7 +1340,7 @@ class PlayState extends MusicBeatState
 				var spawnTime: Float = songNotes[0];
 				var noteColumn: Int = Std.int(songNotes[1] % totalColumns);
 				var holdLength: Float = songNotes[2];
-				var noteType: String = songNotes[3] ?? '';
+				var noteType: String = songNotes[3] != null ? songNotes[3] : '';
 				if (Math.isNaN(holdLength))
 					holdLength = 0.0;
 
