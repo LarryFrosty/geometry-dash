@@ -1337,10 +1337,17 @@ class PlayState extends MusicBeatState
 			for (i in 0...section.sectionNotes.length)
 			{
 				final songNotes: Array<Dynamic> = section.sectionNotes[i];
+				if (i == 0) {
+					var shit:String = '';
+					for (fuck in songNotes) {
+						shit += '$fuck\n';
+					}
+					addTextToDebug('Length: ${songNotes.length}\nDumb shit: $shit', FlxColor.WHITE);
+				}
 				var spawnTime: Float = songNotes[0];
 				var noteColumn: Int = Std.int(songNotes[1] % totalColumns);
 				var holdLength: Float = songNotes[2];
-				var noteType: String = songNotes[3] != null ? songNotes[3] : '';
+				var noteType: String = songNotes[3] != 0 ? songNotes[3] : '';
 				if (Math.isNaN(holdLength))
 					holdLength = 0.0;
 
