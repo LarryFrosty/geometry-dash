@@ -470,7 +470,7 @@ class HScript extends Iris
 		try {
 			isFunction = funcVar != null && Reflect.isFunction(funcVar);
 			if (!isFunction)
-				throw 'Tried to call a non-function, for "$fun"';
+				throw 'Tried to call a non-function, for "$func"';
 			// throw "Variable not found or not callable, for \"" + fun + "\"";
 
 			final ret = Reflect.callMethod(null, funcVar, args);
