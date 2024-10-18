@@ -3396,7 +3396,7 @@ class PlayState extends MusicBeatState
 			try
 			{
 				var callValue:IrisCall = script.call(funcToCall, args);
-				var myValue:Dynamic = callValue?.returnValue;
+				var myValue:Dynamic = callValue.returnValue;
 
 				if((myValue == LuaUtils.Function_StopHScript || myValue == LuaUtils.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
 				{
