@@ -3513,8 +3513,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		var btnX = tab.x - upperBox.x;
 		var btnY = 1;
 		var btnWid = Std.int(tab.width);
-
-		#if !mobile
 		var btn:PsychUIButton = new PsychUIButton(btnX, btnY, '  New', function()
 		{
 			var func:Void->Void = function()
@@ -3532,6 +3530,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 		btnY++;
 		btnY += 20;
+		#if !mobile
 		var btn:PsychUIButton = new PsychUIButton(btnX, btnY, '  Open Chart...', function()
 		{
 			if(!fileDialog.completed) return;
@@ -3571,9 +3570,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		}, btnWid);
 		btn.text.alignment = LEFT;
 		tab_group.add(btn);
+		#end
 
 		btnY += 20;
-		#end
 		var btn:PsychUIButton = new PsychUIButton(btnX, btnY, '  Open Autosave...', function()
 		{
 			if(!fileDialog.completed) return;
