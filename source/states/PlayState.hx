@@ -1481,9 +1481,8 @@ class PlayState extends MusicBeatState
 	}
 
 	function eventEarlyTrigger(event:EventNote):Float {
-		var returnedValue:Dynamic = callOnScripts('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], true, [], [0]);
-		returnedValue = Std.parseFloat(returnedValue);
-		if(!Math.isNaN(returnedValue) && returnedValue != 0) {
+		var returnedValue:Null<Float> = callOnScripts('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], true, [], [0]);
+		if(returnedValue != null && returnedValue != LuaUtils.Function_Continue && returnedValue != 0) {
 			return returnedValue;
 		}
 
