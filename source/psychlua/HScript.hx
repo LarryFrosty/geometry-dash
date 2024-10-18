@@ -455,9 +455,34 @@ class HScript extends Iris
 	}
 	#end
 
-	override public function set(name:String, value:Dynamic, allowOverride:Bool = false):Void {
-		// should always override by default
-		super.set(name, value, true);
+	override function call(func:String, ?args:Array<Dynamic>):IrisCall {
+		if (interp == null) {
+			#if IRIS_DEBUG
+			trace('[Iris:call()]: $interpErrStr, so functions cannot be called.');
+			#end
+			return null;
+		}
+
+		args ??= [];
+
+		var funcVar:Dynamic = interp.variables.get(func); // function signature
+		var isFunction:Bool = false;
+		try {
+			isFunction = funcVar != null && Reflect.isFunction(funcVar);
+			if (!isFunction)
+				throw 'Tried to call a non-function, for "$fun"';
+			// throw "Variable not found or not callable, for \"" + fun + "\"";
+
+			final ret = Reflect.callMethod(null, funcVar, args);
+			return {funName: func, signature: funcVar, returnValue: ret};
+		}
+		// @formatter:off
+		#if hscriptPos
+		catch (e:IrisError) {
+			errorCaught(e, func);
+		}
+		#end
+		return {funName: func, signature: isFunction ? funcVar : null, returnValue: null};
 	}
 
 	override public function destroy()
